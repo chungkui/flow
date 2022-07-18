@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.snaker.engine.mapper.HistOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.snaker.engine.entity.po.HistOrder">
+        <id column="id" property="id" />
+        <result column="process_Id" property="processId" />
+        <result column="order_State" property="orderState" />
+        <result column="creator" property="creator" />
+        <result column="create_Time" property="createTime" />
+        <result column="end_Time" property="endTime" />
+        <result column="expire_Time" property="expireTime" />
+        <result column="priority" property="priority" />
+        <result column="parent_Id" property="parentId" />
+        <result column="order_No" property="orderNo" />
+        <result column="variable" property="variable" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, process_Id, order_State, creator, create_Time, end_Time, expire_Time, priority, parent_Id, order_No, variable
+    </sql>
+
+</mapper>

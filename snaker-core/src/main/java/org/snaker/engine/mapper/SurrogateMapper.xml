@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.snaker.engine.mapper.SurrogateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.snaker.engine.entity.po.Surrogate">
+        <id column="id" property="id" />
+        <result column="process_Name" property="processName" />
+        <result column="operator" property="operator" />
+        <result column="surrogate" property="surrogate" />
+        <result column="odate" property="odate" />
+        <result column="sdate" property="sdate" />
+        <result column="edate" property="edate" />
+        <result column="state" property="state" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, process_Name, operator, surrogate, odate, sdate, edate, state
+    </sql>
+
+</mapper>
