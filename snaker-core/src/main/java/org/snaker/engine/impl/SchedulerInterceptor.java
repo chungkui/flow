@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.snaker.engine.SnakerInterceptor;
 import org.snaker.engine.core.Execution;
 import org.snaker.engine.core.ServiceContext;
-import org.snaker.engine.entity.Task;
+import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.model.TaskModel;
 import org.snaker.engine.scheduling.IScheduler;
 import org.snaker.engine.scheduling.JobEntity;
@@ -52,8 +52,8 @@ public class SchedulerInterceptor implements SnakerInterceptor {
 	public void intercept(Execution execution) {
 		if(!isScheduled) return;
 		for(Task task : execution.getTasks()) {
-			String id = execution.getProcess().getId() 
-					+ "-" + execution.getOrder().getId() 
+			String id = execution.getProcess().getId()
+					+ "-" + execution.getOrder().getId()
 					+ "-" + task.getId();
 			Date expireDate = task.getExpireDate();
 			if(expireDate != null) {
@@ -65,7 +65,7 @@ public class SchedulerInterceptor implements SnakerInterceptor {
 			}
 		}
 	}
-	
+
 	public void schedule(String id, Task task, Date startDate, int jobType, Map<String, Object> args) {
 		try {
 		    JobEntity entity = new JobEntity(id, task, startDate, args);
@@ -83,7 +83,7 @@ public class SchedulerInterceptor implements SnakerInterceptor {
 			log.info("scheduler failed.task is:" + task);
 		}
 	}
-	
+
 	private void schedule(JobEntity entity) {
 	    if(scheduler == null) {
 	    	scheduler = ServiceContext.getContext().find(IScheduler.class);

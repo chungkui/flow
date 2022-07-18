@@ -19,8 +19,8 @@ import java.util.Map;
 
 import org.snaker.engine.cfg.Configuration;
 import org.snaker.engine.core.Execution;
-import org.snaker.engine.entity.Order;
-import org.snaker.engine.entity.Task;
+import org.snaker.engine.entity.po.Order;
+import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.model.TaskModel;
 
 /**
@@ -29,54 +29,49 @@ import org.snaker.engine.model.TaskModel;
  * @since 1.0
  */
 public interface SnakerEngine {
-	public static final String ADMIN = "snaker.admin";
-	public static final String AUTO = "snaker.auto";
-    public static final String ID = "snaker.orderNo";
+	 static final String ADMIN = "snaker.admin";
+	 static final String AUTO = "snaker.auto";
+     static final String ID = "snaker.orderNo";
 	/**
 	 * 根据Configuration对象配置实现类
 	 * @param config 全局配置对象
 	 * @return SnakerEngine 流程引擎
 	 */
-	public SnakerEngine configure(Configuration config);
-	
+	 SnakerEngine configure(Configuration config);
+
 	/**
 	 * 获取process服务
 	 * @return IProcessService 流程定义服务
 	 */
-	public IProcessService process();
-	
-	/**
-	 * 获取查询服务
-	 * @return IQueryService 常用查询服务
-	 */
-	public IQueryService query();
-	
+	 IProcessService process();
+
+
 	/**
 	 * 获取实例服务
 	 * @return IQueryService 流程实例服务
 	 */
-	public IOrderService order();
-	
+	 IOrderService order();
+
 	/**
 	 * 获取任务服务
 	 * @return ITaskService 任务服务
 	 */
-	public ITaskService task();
-	
+	 ITaskService task();
+
 	/**
 	 * 获取管理服务
 	 * @return IManagerService 管理服务
 	 */
-	public IManagerService manager();
-	
+	 IManagerService manager();
+
 	/**
 	 * 根据流程定义ID启动流程实例
 	 * @param id 流程定义ID
 	 * @return Order 流程实例
 	 * @see #startInstanceById(String, String, Map)
 	 */
-	public Order startInstanceById(String id);
-	
+	 Order startInstanceById(String id);
+
 	/**
 	 * 根据流程定义ID，操作人ID启动流程实例
 	 * @param id 流程定义ID
@@ -84,8 +79,8 @@ public interface SnakerEngine {
 	 * @return Order 流程实例
 	 * @see #startInstanceById(String, String, Map)
 	 */
-	public Order startInstanceById(String id, String operator);
-	
+	 Order startInstanceById(String id, String operator);
+
 	/**
 	 * 根据流程定义ID，操作人ID，参数列表启动流程实例
 	 * @param id 流程定义ID
@@ -93,23 +88,23 @@ public interface SnakerEngine {
 	 * @param args 参数列表
 	 * @return Order 流程实例
 	 */
-	public Order startInstanceById(String id, String operator, Map<String, Object> args);
-	
+	 Order startInstanceById(String id, String operator, Map<String, Object> args);
+
 	/**
 	 * 根据流程名称启动流程实例
 	 * @param name 流程定义名称
 	 * @return Order 流程实例
 	 */
-	public Order startInstanceByName(String name);
-	
+	 Order startInstanceByName(String name);
+
 	/**
 	 * 根据流程名称、版本号启动流程实例
 	 * @param name 流程定义名称
 	 * @param version 版本号
 	 * @return Order 流程实例
 	 */
-	public Order startInstanceByName(String name, Integer version);
-	
+	 Order startInstanceByName(String name, Integer version);
+
 	/**
 	 * 根据流程名称、版本号、操作人启动流程实例
 	 * @param name 流程定义名称
@@ -117,8 +112,8 @@ public interface SnakerEngine {
 	 * @param operator 操作人
 	 * @return Order 流程实例
 	 */
-	public Order startInstanceByName(String name, Integer version, String operator);
-	
+	 Order startInstanceByName(String name, Integer version, String operator);
+
 	/**
 	 * 根据流程名称、版本号、操作人、参数列表启动流程实例
 	 * @param name 流程定义名称
@@ -127,23 +122,23 @@ public interface SnakerEngine {
 	 * @param args 参数列表
 	 * @return Order 流程实例
 	 */
-	public Order startInstanceByName(String name, Integer version, String operator, Map<String, Object> args);
-	
+	 Order startInstanceByName(String name, Integer version, String operator, Map<String, Object> args);
+
 	/**
 	 * 根据父执行对象启动子流程实例
 	 * @param execution 执行对象
 	 * @return Order 流程实例
 	 */
-	public Order startInstanceByExecution(Execution execution);
-	
+	 Order startInstanceByExecution(Execution execution);
+
 	/**
 	 * 根据任务主键ID执行任务
 	 * @param taskId 任务主键ID
 	 * @return List<Task> 任务集合
 	 * @see #executeTask(String, String, Map)
 	 */
-	public List<Task> executeTask(String taskId);
-	
+	 List<Task> executeTask(String taskId);
+
 	/**
 	 * 根据任务主键ID，操作人ID执行任务
 	 * @param taskId 任务主键ID
@@ -151,8 +146,8 @@ public interface SnakerEngine {
 	 * @return List<Task> 任务集合
 	 * @see #executeTask(String, String, Map)
 	 */
-	public List<Task> executeTask(String taskId, String operator);
-	
+	 List<Task> executeTask(String taskId, String operator);
+
 	/**
 	 * 根据任务主键ID，操作人ID，参数列表执行任务
 	 * @param taskId 任务主键ID
@@ -160,8 +155,8 @@ public interface SnakerEngine {
 	 * @param args 参数列表
 	 * @return List<Task> 任务集合
 	 */
-	public List<Task> executeTask(String taskId, String operator, Map<String, Object> args);
-	
+	 List<Task> executeTask(String taskId, String operator, Map<String, Object> args);
+
 	/**
 	 * 根据任务主键ID，操作人ID，参数列表执行任务，并且根据nodeName跳转到任意节点
 	 * 1、nodeName为null时，则跳转至上一步处理
@@ -172,8 +167,8 @@ public interface SnakerEngine {
 	 * @param nodeName 跳转的节点名称
 	 * @return List<Task> 任务集合
 	 */
-	public List<Task> executeAndJumpTask(String taskId, String operator, Map<String, Object> args, String nodeName);
-	
+	 List<Task> executeAndJumpTask(String taskId, String operator, Map<String, Object> args, String nodeName);
+
 	/**
 	 * 根据流程实例ID，操作人ID，参数列表按照节点模型model创建新的自由任务
 	 * @param orderId 流程实例id
@@ -182,5 +177,5 @@ public interface SnakerEngine {
 	 * @param model 节点模型
 	 * @return List<Task> 任务集合
 	 */
-	public List<Task> createFreeTask(String orderId, String operator, Map<String, Object> args, TaskModel model);
+	 List<Task> createFreeTask(String orderId, String operator, Map<String, Object> args, TaskModel model);
 }

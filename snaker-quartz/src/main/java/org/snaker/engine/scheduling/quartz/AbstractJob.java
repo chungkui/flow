@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.snaker.engine.SnakerEngine;
 import org.snaker.engine.core.ServiceContext;
-import org.snaker.engine.entity.Process;
+import org.snaker.engine.entity.po.Process;
 import org.snaker.engine.helper.AssertHelper;
 import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.NodeModel;
@@ -45,7 +45,7 @@ public abstract class AbstractJob implements Job {
 	 * 流程引擎
 	 */
 	protected SnakerEngine engine = ServiceContext.getEngine();
-	
+
 	@SuppressWarnings("unchecked")
 	public void execute(JobExecutionContext context)
 			throws JobExecutionException {
@@ -57,7 +57,7 @@ public abstract class AbstractJob implements Job {
 		AssertHelper.notEmpty(key);
 		data.remove(IScheduler.KEY);
 		data.remove(IScheduler.MODEL);
-		
+
 		String[] ids = key.split("-");
 		if(ids.length != 3) {
 			log.warn("id值不合法,执行操作被忽略.");
@@ -66,7 +66,7 @@ public abstract class AbstractJob implements Job {
 		String processId = ids[0];
 		String orderId = ids[1];
 		String taskId = ids[2];
-		
+
 		Process process = engine.process().getProcessById(processId);
 		ProcessModel processModel = process.getModel();
 		NodeModel nodeModel = null;
@@ -87,7 +87,7 @@ public abstract class AbstractJob implements Job {
 	 */
 	abstract void exec(Process process, String orderId,
 			String taskId, NodeModel nodeModel, Map<String, Object> data) throws JobExecutionException;
-	
+
 	/**
 	 * 获取调度器接口
 	 * @return

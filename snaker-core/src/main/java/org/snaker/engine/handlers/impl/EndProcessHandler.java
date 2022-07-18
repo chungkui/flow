@@ -18,15 +18,18 @@ import java.util.List;
 
 import org.snaker.engine.SnakerEngine;
 import org.snaker.engine.SnakerException;
-import org.snaker.engine.access.QueryFilter;
 import org.snaker.engine.core.Execution;
-import org.snaker.engine.entity.Order;
-import org.snaker.engine.entity.Process;
-import org.snaker.engine.entity.Task;
+
+import org.snaker.engine.entity.po.Order;
+import org.snaker.engine.entity.po.Task;
+import org.snaker.engine.entity.po.Process;
 import org.snaker.engine.handlers.IHandler;
 import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.model.SubProcessModel;
+import org.snaker.engine.service.OrderService;
+import org.snaker.engine.service.ProcessService;
+import org.snaker.engine.service.TaskService;
 
 /**
  * 结束流程实例的处理器
@@ -34,13 +37,16 @@ import org.snaker.engine.model.SubProcessModel;
  * @since 1.0
  */
 public class EndProcessHandler implements IHandler {
+	private TaskService taskService;
+	private OrderService orderService;
+	private ProcessService processService;
 	/**
 	 * 结束当前流程实例，如果存在父流程，则触发父流程继续执行
 	 */
 	public void handle(Execution execution) {
 		SnakerEngine engine = execution.getEngine();
 		Order order = execution.getOrder();
-		List<Task> tasks = engine.query().getActiveTasks(new QueryFilter().setOrderId(order.getId()));
+		List<Task> tasks =taskService.getActiveTasks(order.getId(),null,null);
 		for(Task task : tasks) {
 			if(task.isMajor()) throw new SnakerException("存在未完成的主办任务,请确认.");
 			engine.task().complete(task.getId(), SnakerEngine.AUTO);
@@ -49,14 +55,14 @@ public class EndProcessHandler implements IHandler {
 		 * 结束当前流程实例
 		 */
 		engine.order().complete(order.getId());
-		
+
 		/**
 		 * 如果存在父流程，则重新构造Execution执行对象，交给父流程的SubProcessModel模型execute
 		 */
 		if(StringHelper.isNotEmpty(order.getParentId())) {
-			Order parentOrder = engine.query().getOrder(order.getParentId());
+			Order parentOrder =orderService.getById(order.getParentId()) ;
 			if(parentOrder == null) return;
-			Process process = engine.process().getProcessById(parentOrder.getProcessId());
+			Process process = processService.getById(parentOrder.getProcessId());
 			ProcessModel pm = process.getModel();
 			if(pm == null) return;
 			SubProcessModel spm = (SubProcessModel)pm.getNode(order.getParentNodeName());

@@ -30,5 +30,5 @@ public interface Expression {
 	 * @param args 参数列表
 	 * @return T 返回对象
 	 */
-	public <T> T eval(Class<T> T, String expr, Map<String, Object> args);
+	 <T> T eval(Class<T> T, String expr, Map<String, Object> args);
 }

@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
-import org.snaker.engine.entity.Task;
+import org.snaker.engine.entity.po.Task;
 
 /**
  * job实体，用于传递给具体的调度框架
@@ -69,22 +69,22 @@ public class JobEntity implements Serializable {
 	 * 执行参数
 	 */
 	private Map<String, Object> args;
-	
+
 	public JobEntity(String id, Task task, Date startTime) {
 		this(id, task, startTime, 0);
 	}
-	
+
 	public JobEntity(String id, Task task, Date startTime, int period) {
 		this.id = id;
 		this.task = task;
 		this.startTime = startTime;
 		this.period = period;
 	}
-	
+
 	public JobEntity(String id, Task task, Date startTime, Map<String, Object> args) {
 		this(id, task, startTime, args, 0);
 	}
-	
+
 	public JobEntity(String id, Task task, Date startTime, Map<String, Object> args, int period) {
 		this.id = id;
 		this.task = task;
@@ -92,7 +92,7 @@ public class JobEntity implements Serializable {
 		this.period = period;
 		this.args = args;
 	}
-	
+
 	public Task getTask() {
 		return task;
 	}

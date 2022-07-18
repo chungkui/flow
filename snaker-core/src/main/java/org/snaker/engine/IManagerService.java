@@ -18,7 +18,7 @@ import java.util.List;
 
 import org.snaker.engine.access.Page;
 import org.snaker.engine.access.QueryFilter;
-import org.snaker.engine.entity.Surrogate;
+import org.snaker.engine.entity.po.Surrogate;
 
 /**
  * 管理服务接口,用于流程管理控制服务
@@ -32,28 +32,23 @@ public interface IManagerService {
 	 * 保存或更新委托代理对象
 	 * @param surrogate 委托代理对象
 	 */
-	public void saveOrUpdate(Surrogate surrogate);
-	
+	 void saveOrUpdate(Surrogate surrogate);
+
 	/**
 	 * 删除委托代理对象
 	 * @param id 委托代理主键id
 	 */
-	public void deleteSurrogate(String id);
-	
+	 void deleteSurrogate(String id);
+
 	/**
 	 * 根据主键id查询委托代理对象
 	 * @param id 主键id
 	 * @return surrogate 委托代理对象
 	 */
-	public Surrogate getSurrogate(String id);
-	
-	/**
-	 * 根据过滤条件查询委托代理对象
-	 * @param filter 查询过滤器
-	 * @return List<Surrogate> 委托代理对象集合
-	 */
-	public List<Surrogate> getSurrogate(QueryFilter filter);
-	
+	 Surrogate getSurrogate(String id);
+
+
+
 	/**
 	 * 根据授权人、流程名称获取最终代理人
 	 * 如存在user1->user2->user3，那么最终返回user3
@@ -61,13 +56,7 @@ public interface IManagerService {
 	 * @param processName 流程名称
 	 * @return String 代理人
 	 */
-	public String getSurrogate(String operator, String processName);
-	
-	/**
-	 * 根据过滤条件查询委托代理对象
-	 * @param page 分页对象
-	 * @param filter 查询过滤器
-	 * @return List<Surrogate> 委托代理对象集合
-	 */
-	public List<Surrogate> getSurrogate(Page<Surrogate> page, QueryFilter filter);
+	 String getSurrogate(String operator, String processName);
+
+
 }

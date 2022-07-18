@@ -17,50 +17,45 @@ package org.snaker.engine.core;
 import java.util.List;
 
 import org.snaker.engine.IManagerService;
-import org.snaker.engine.access.Page;
 import org.snaker.engine.access.QueryFilter;
-import org.snaker.engine.entity.Surrogate;
+import org.snaker.engine.cost.FlowState;
+import org.snaker.engine.entity.po.Surrogate;
 import org.snaker.engine.helper.AssertHelper;
 import org.snaker.engine.helper.DateHelper;
 import org.snaker.engine.helper.StringHelper;
+import org.snaker.engine.service.SurrogateService;
 
 /**
  * 管理服务类
  * @author yuqs
  * @since 1.4
  */
-public class ManagerService extends AccessService implements IManagerService {
+public class ManagerService  implements IManagerService {
+	SurrogateService surrogateService;
 	public void saveOrUpdate(Surrogate surrogate) {
 		AssertHelper.notNull(surrogate);
-		surrogate.setState(STATE_ACTIVE);
+		surrogate.setState(FlowState.STATE_ACTIVE.getState());
 		if(StringHelper.isEmpty(surrogate.getId())) {
 			surrogate.setId(StringHelper.getPrimaryKey());
-			access().saveSurrogate(surrogate);
+			surrogateService.save(surrogate);
 		} else {
-			access().updateSurrogate(surrogate);
+			surrogateService.updateById(surrogate);
 		}
 	}
 
 	public void deleteSurrogate(String id) {
 		Surrogate surrogate = getSurrogate(id);
 		AssertHelper.notNull(surrogate);
-		access().deleteSurrogate(surrogate);
+		surrogateService.removeById(id);
+
 	}
 
 	public Surrogate getSurrogate(String id) {
-		return access().getSurrogate(id);
-	}
-	
-	public List<Surrogate> getSurrogate(QueryFilter filter) {
-		AssertHelper.notNull(filter);
-		return access().getSurrogate(null, filter);
+		return surrogateService.getById(id);
 	}
 
-	public List<Surrogate> getSurrogate(Page<Surrogate> page, QueryFilter filter) {
-		AssertHelper.notNull(filter);
-		return access().getSurrogate(page, filter);
-	}
-	
+
+
 	public String getSurrogate(String operator, String processName) {
 		AssertHelper.notEmpty(operator);
 		QueryFilter filter = new QueryFilter().
@@ -69,7 +64,7 @@ public class ManagerService extends AccessService implements IManagerService {
 		if(StringHelper.isNotEmpty(processName)) {
 			filter.setName(processName);
 		}
-		List<Surrogate> surrogates = getSurrogate(filter);
+		List<Surrogate> surrogates = surrogateService.list( operator, processName,DateHelper.getTime(),DateHelper.getTime());
 		if(surrogates == null || surrogates.isEmpty()) return operator;
 		StringBuffer buffer = new StringBuffer(50);
 		for(Surrogate surrogate : surrogates) {

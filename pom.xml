@@ -13,6 +13,8 @@
         <module>snaker-mybatis</module>
         <module>snaker-hibernate</module>
         <module>snaker-hibernate4</module>
+        <module>snaker-spring-boot-starter</module>
+        <module>snaker-mybatis-plus</module>
     </modules>
     <parent>
         <groupId>org.sonatype.oss</groupId>

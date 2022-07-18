@@ -21,9 +21,9 @@ import java.util.Map;
 
 import org.snaker.engine.SnakerEngine;
 import org.snaker.engine.SnakerException;
-import org.snaker.engine.entity.Order;
-import org.snaker.engine.entity.Process;
-import org.snaker.engine.entity.Task;
+import org.snaker.engine.entity.po.Order;
+import org.snaker.engine.entity.po.Process;
+import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.model.ProcessModel;
 
 /**
@@ -33,7 +33,7 @@ import org.snaker.engine.model.ProcessModel;
  */
 public class Execution implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 3730741790729624400L;
 	/**
@@ -81,7 +81,7 @@ public class Execution implements Serializable {
 	 * 针对join节点的处理
 	 */
 	private boolean isMerged = false;
-	
+
 	/**
 	 * 用于产生子流程执行对象使用
 	 * @param execution
@@ -99,7 +99,7 @@ public class Execution implements Serializable {
 		this.parentNodeName = parentNodeName;
 		this.operator = execution.getOperator();
 	}
-	
+
 	/**
 	 * 构造函数，接收流程定义、流程实例对象、执行参数
 	 * @param process
@@ -115,7 +115,7 @@ public class Execution implements Serializable {
 		this.order = order;
 		this.args = args;
 	}
-	
+
 	/**
 	 * 根据当前执行对象execution、子流程定义process、当前节点名称产生子流程的执行对象
 	 * @param execution
@@ -126,7 +126,7 @@ public class Execution implements Serializable {
 	public Execution createSubExecution(Execution execution, Process process, String parentNodeName) {
 		return new Execution(execution, process, parentNodeName);
 	}
-	
+
 	/**
 	 * 获取流程定义对象
 	 * @return
@@ -134,7 +134,7 @@ public class Execution implements Serializable {
 	public Process getProcess() {
 		return process;
 	}
-	
+
 	/**
 	 * 获取流程模型对象
 	 * @return
@@ -142,7 +142,7 @@ public class Execution implements Serializable {
 	public ProcessModel getModel() {
 		return process.getModel();
 	}
-	
+
 	/**
 	 * 获取流程实例对象
 	 * @return
@@ -150,7 +150,7 @@ public class Execution implements Serializable {
 	public Order getOrder() {
 		return order;
 	}
-	
+
 	/**
 	 * 获取执行参数
 	 * @return
@@ -158,7 +158,7 @@ public class Execution implements Serializable {
 	public Map<String, Object> getArgs() {
 		return args;
 	}
-	
+
 	/**
 	 * 返回任务结果集
 	 * @return
@@ -166,7 +166,7 @@ public class Execution implements Serializable {
 	public List<Task> getTasks() {
 		return tasks;
 	}
-	
+
 	/**
 	 * 添加任务集合
 	 * @param tasks
@@ -174,7 +174,7 @@ public class Execution implements Serializable {
 	public void addTasks(List<Task> tasks) {
 		this.tasks.addAll(tasks);
 	}
-	
+
 	/**
 	 * 添加任务
 	 * @param task

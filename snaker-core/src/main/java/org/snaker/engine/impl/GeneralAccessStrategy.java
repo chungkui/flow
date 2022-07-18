@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.snaker.engine.TaskAccessStrategy;
-import org.snaker.engine.entity.TaskActor;
+import org.snaker.engine.entity.po.TaskActor;
 
 /**
  * 基于用户或组（角色、部门等）的访问策略类
@@ -35,7 +35,7 @@ public class GeneralAccessStrategy implements TaskAccessStrategy {
 	protected List<String> ensureGroup(String operator) {
 		return null;
 	}
-	
+
 	/**
 	 * 如果操作人id所属的组只要有一项存在于参与者集合中，则表示可访问
 	 */

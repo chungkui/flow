@@ -16,7 +16,7 @@ package org.snaker.engine.scheduling;
 
 import java.util.List;
 
-import org.snaker.engine.entity.Task;
+import org.snaker.engine.entity.po.Task;
 
 /**
  * 任务job执行后的回调类

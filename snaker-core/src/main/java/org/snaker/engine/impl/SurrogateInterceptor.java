@@ -18,7 +18,7 @@ import org.snaker.engine.ITaskService;
 import org.snaker.engine.SnakerEngine;
 import org.snaker.engine.SnakerInterceptor;
 import org.snaker.engine.core.Execution;
-import org.snaker.engine.entity.Task;
+import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.helper.StringHelper;
 
 /**

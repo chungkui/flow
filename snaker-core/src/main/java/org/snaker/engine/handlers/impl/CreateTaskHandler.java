@@ -22,7 +22,7 @@ import org.snaker.engine.SnakerException;
 import org.snaker.engine.SnakerInterceptor;
 import org.snaker.engine.core.Execution;
 import org.snaker.engine.core.ServiceContext;
-import org.snaker.engine.entity.Task;
+import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.handlers.IHandler;
 import org.snaker.engine.model.TaskModel;
 
@@ -37,7 +37,7 @@ public class CreateTaskHandler implements IHandler {
 	 * 任务模型
 	 */
 	private TaskModel model;
-	
+
 	/**
 	 * 调用者需要提供任务模型
 	 * @param model 模型
@@ -45,7 +45,7 @@ public class CreateTaskHandler implements IHandler {
 	public CreateTaskHandler(TaskModel model) {
 		this.model = model;
 	}
-	
+
 	/**
 	 * 根据任务模型、执行对象，创建下一个任务，并添加到execution对象的tasks集合中
 	 */

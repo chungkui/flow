@@ -12,10 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.snaker.engine;
-
-import java.util.List;
-import java.util.Map;
+package org.snaker.engine.service;
 
 import org.snaker.engine.core.Execution;
 import org.snaker.engine.entity.po.HistTask;
@@ -23,6 +20,9 @@ import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.model.CustomModel;
 import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.model.TaskModel;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 任务业务类，包括以下服务：
@@ -35,7 +35,7 @@ import org.snaker.engine.model.TaskModel;
  * @author yuqs
  * @since 1.0
  */
-public interface ITaskService {
+public interface TaskFlowService {
 	/**
 	 * 完成指定的任务，删除活动任务记录，创建历史任务
 	 * @param taskId 任务id

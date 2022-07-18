@@ -16,7 +16,7 @@ package org.snaker.engine;
 
 import java.util.List;
 
-import org.snaker.engine.entity.TaskActor;
+import org.snaker.engine.entity.po.TaskActor;
 
 /**
  * 任务访问策略类
@@ -31,5 +31,5 @@ public interface TaskAccessStrategy {
 	 * @param actors 参与者列表 传递至该接口的实现类中的参与者都是为非空
 	 * @return boolean 是否允许访问
 	 */
-	boolean isAllowed(String operator, List<TaskActor> actors); 
+	boolean isAllowed(String operator, List<TaskActor> actors);
 }

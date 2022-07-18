@@ -2,9 +2,9 @@
 
 <config>
 	<bean class="org.snaker.engine.core.SnakerEngineImpl" proxy="transaction"/>
-	<bean class="org.snaker.engine.core.TaskService" proxy="transaction"/>
-	<bean class="org.snaker.engine.core.OrderService" proxy="transaction"/>
-	<bean class="org.snaker.engine.core.ProcessService" proxy="transaction"/>
+	<bean class="org.snaker.engine.core.TaskFlowService" proxy="transaction"/>
+	<bean class="org.snaker.engine.core.OrderFlowService" proxy="transaction"/>
+	<bean class="org.snaker.engine.core.ProcessFlowService" proxy="transaction"/>
 	<bean class="org.snaker.engine.core.QueryService" proxy="transaction"/>
 	<bean class="org.snaker.engine.core.ManagerService" proxy="transaction"/>
 </config>

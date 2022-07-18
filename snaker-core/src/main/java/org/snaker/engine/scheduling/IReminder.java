@@ -17,7 +17,7 @@
 
 package org.snaker.engine.scheduling;
 
-import org.snaker.engine.entity.Process;
+import org.snaker.engine.entity.po.Process;
 import org.snaker.engine.model.NodeModel;
 
 import java.util.Map;

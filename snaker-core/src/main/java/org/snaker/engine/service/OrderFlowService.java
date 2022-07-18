@@ -12,19 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.snaker.engine;
-
-import java.util.Map;
+package org.snaker.engine.service;
 
 import org.snaker.engine.entity.po.Order;
 import org.snaker.engine.entity.po.Process;
 
+import java.util.Map;
+
 /**
+ * 把所有的类生成到该文件下。
+ * 原子service进行生成。然后flowvice重新编写，
+ * 简化项目结构，纯接口方式提供服务
  * 流程实例业务类
  * @author yuqs
  * @since 1.0
  */
-public interface IOrderService {
+public interface OrderFlowService {
 	/**
 	 * 根据流程、操作人员、父流程实例ID创建流程实例
 	 * @param process 流程定义对象
@@ -50,7 +53,7 @@ public interface IOrderService {
      * @param orderId 实例id
      * @param args 变量数据
      */
-    void addVariable(String orderId, Map<String ,Object> args);
+    void addVariable(String orderId, Map<String, Object> args);
 
 	/**
 	 * 创建抄送实例
