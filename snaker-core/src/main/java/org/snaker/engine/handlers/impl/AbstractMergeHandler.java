@@ -25,7 +25,6 @@ import org.snaker.engine.handlers.IHandler;
 import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.model.SubProcessModel;
 import org.snaker.engine.model.TaskModel;
-import org.snaker.engine.service.OrderService;
 import org.snaker.engine.service.TaskService;
 
 /**
@@ -35,7 +34,6 @@ import org.snaker.engine.service.TaskService;
  * @since 1.0
  */
 public abstract class AbstractMergeHandler implements IHandler {
-	OrderService orderService;
 	TaskService taskService;
 	public void handle(Execution execution) {
 		/**
@@ -47,11 +45,10 @@ public abstract class AbstractMergeHandler implements IHandler {
 		String[] activeNodes = findActiveNodes();
 		boolean isSubProcessMerged = false;
 		boolean isTaskMerged = false;
-
 		if(model.containsNodeNames(SubProcessModel.class, activeNodes)) {
-			QueryFilter filter = new QueryFilter().setParentId(order.getId())
-					.setExcludedIds(new String[]{execution.getChildOrderId()});
-			List<Order> orders = orderService.getActiveOrders(order.getId(),new String[]{execution.getChildOrderId()});
+			//查询父流程中除了本实例之外的所有子流程
+			List<Order> orders = execution.getEngine().order().
+					listActiveChildOrders(order.getId(),new String[]{execution.getChildOrderId()});
 			//如果所有子流程都已完成，则表示可合并
 			if(orders == null || orders.isEmpty()) {
 				isSubProcessMerged = true;
@@ -60,12 +57,9 @@ public abstract class AbstractMergeHandler implements IHandler {
 			isSubProcessMerged = true;
 		}
 		if(isSubProcessMerged && model.containsNodeNames(TaskModel.class, activeNodes)) {
-			QueryFilter filter = new QueryFilter().
-					setOrderId(order.getId()).
-					setExcludedIds(new String[]{execution.getTask().getId() }).
-					setNames(activeNodes);
-			List<Task> tasks = 	taskService.getActiveTasks(order.getId(),
+			List<Task> tasks =execution.getEngine().task().listActiveTasks(order.getId(),
 					new String[]{execution.getTask().getId() },activeNodes);
+
 
 			if(tasks == null || tasks.isEmpty()) {
 				//如果所有task都已完成，则表示可合并

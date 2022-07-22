@@ -33,6 +33,7 @@ import org.snaker.engine.parser.ModelParser;
 import org.snaker.engine.service.HistOrderService;
 import org.snaker.engine.service.OrderFlowService;
 import org.snaker.engine.service.ProcessService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.InputStream;
 import java.util.List;
@@ -61,6 +62,8 @@ public class ProcessFlowFlowServiceImpl implements ProcessFlowService,
 	private ProcessService processService;
 	private HistOrderService histOrderService;
 	private OrderFlowService orderFlowService;
+	@Autowired
+	ModelParser modelParser;
 	/**
 	 * 实体cache(key=name,value=entity对象)
 	 */
@@ -189,7 +192,7 @@ public class ProcessFlowFlowServiceImpl implements ProcessFlowService,
 		AssertHelper.notNull(input);
 		try {
 			byte[] bytes = StreamHelper.readBytes(input);
-			ProcessModel model = ModelParser.parse(bytes);
+			ProcessModel model = modelParser.parse(bytes);
 			Integer version =processService.getLatestProcessVersion(model.getName());
 			Process entity = new Process();
 			entity.setId(StringHelper.getPrimaryKey());
@@ -227,7 +230,7 @@ public class ProcessFlowFlowServiceImpl implements ProcessFlowService,
 		AssertHelper.notNull(entity);
 		try {
 			byte[] bytes = StreamHelper.readBytes(input);
-			ProcessModel model = ModelParser.parse(bytes);
+			ProcessModel model = modelParser.parse(bytes);
 			String oldProcessName = entity.getName();
 			entity.setName(model.getName());
 			entity.setDisplayName(model.getDisplayName());
@@ -296,7 +299,7 @@ public class ProcessFlowFlowServiceImpl implements ProcessFlowService,
 		Cache<String, String> nameCache = ensureAvailableNameCache();
 		Cache<String, Process> entityCache = ensureAvailableEntityCache();
 		 if(entity.getModel() == null && entity.getContent() != null) {
-			entity.setModel(ModelParser.parse(entity.getContent()));
+			entity.setModel(modelParser.parse(entity.getContent()));
 		}
 		String processName = entity.getName() + DEFAULT_SEPARATOR + entity.getVersion();
 		if(nameCache != null && entityCache != null) {

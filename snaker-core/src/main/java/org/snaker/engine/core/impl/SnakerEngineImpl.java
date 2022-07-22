@@ -25,6 +25,8 @@ import org.snaker.engine.helper.DateHelper;
 import org.snaker.engine.helper.JsonHelper;
 import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,26 +39,31 @@ import java.util.Map;
  * @author yuqs
  * @since 1.0
  */
+@Service
 public class SnakerEngineImpl implements SnakerEngine {
     private static final Logger log = LoggerFactory.getLogger(SnakerEngineImpl.class);
 
     /**
      * 流程定义业务类
      */
+    @Autowired
     protected ProcessFlowService processFlowService;
     /**
      * 流程实例业务类
      */
+    @Autowired
     protected OrderFlowService orderFlowService;
 
     /**
      * 任务业务类
      */
+    @Autowired
     protected TaskFlowService taskFlowService;
 
     /**
      * 管理业务类
      */
+    @Autowired
     protected ManagerFlowService managerFlowService;
 
     /**
@@ -316,21 +323,5 @@ public class SnakerEngineImpl implements SnakerEngine {
         execution.setOperator(operator);
         execution.setTask(task);
         return execution;
-    }
-
-    public void setProcessFlowService(ProcessFlowService processFlowService) {
-        this.processFlowService = processFlowService;
-    }
-
-    public void setOrderFlowService(OrderFlowService orderFlowService) {
-        this.orderFlowService = orderFlowService;
-    }
-
-    public void setTaskFlowService(TaskFlowService taskFlowService) {
-        this.taskFlowService = taskFlowService;
-    }
-
-    public void setManagerFlowService(ManagerFlowService managerFlowService) {
-        this.managerFlowService = managerFlowService;
     }
 }

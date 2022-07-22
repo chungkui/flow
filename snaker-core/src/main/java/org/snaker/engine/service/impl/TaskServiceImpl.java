@@ -31,11 +31,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return null;
     }
 
-    public List<Task> getActiveTasks(String id, String[] strings) {
-        return null;
+    @Override
+    public List<Task> listActiveTasks(String id, String[] excludedIds, String[] activeNodes) {
+        return this.baseMapper.listActiveTasks(id,excludedIds,activeNodes);
     }
 
-    public List<Task> getActiveTasks(String id, String[] strings, String[] activeNodes) {
-        return null;
+    public List<Task> listActiveTasks(String id, String[] excludedIds) {
+        return listActiveTasks(id,excludedIds,null);
     }
+
 }

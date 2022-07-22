@@ -46,7 +46,7 @@ public class EndProcessHandler implements IHandler {
 	public void handle(Execution execution) {
 		SnakerEngine engine = execution.getEngine();
 		Order order = execution.getOrder();
-		List<Task> tasks =taskService.getActiveTasks(order.getId(),null,null);
+		List<Task> tasks =taskService.listActiveTasks(order.getId(),null,null);
 		for(Task task : tasks) {
 			if(task.isMajor()) throw new SnakerException("存在未完成的主办任务,请确认.");
 			engine.task().complete(task.getId(), SnakerEngine.AUTO);

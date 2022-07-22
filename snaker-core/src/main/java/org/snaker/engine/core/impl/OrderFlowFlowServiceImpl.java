@@ -264,4 +264,9 @@ public class OrderFlowFlowServiceImpl  implements OrderFlowService {
             orderService.removeById(order);
         }
     }
+
+    @Override
+    public List<Order> listActiveChildOrders(String parentId, String[] excludedIds){
+        return orderService.listActiveChildOrders(parentId,excludedIds);
+    }
 }

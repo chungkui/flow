@@ -37,7 +37,6 @@ import org.snaker.engine.service.TaskService;
  */
 public class StartSubProcessHandler implements IHandler {
 	private SubProcessModel model;
-	TaskService taskService;
 	/**
 	 * 是否以future方式执行启动子流程任务
 	 */
@@ -79,7 +78,7 @@ public class StartSubProcessHandler implements IHandler {
 		}
 		AssertHelper.notNull(order, "子流程创建失败");
 		execution.addTasks(
-				  taskService.getActiveTasks(order.getId(),null,null));
+				engine.task().listActiveTasks(order.getId(),null,null));
 	}
 
 	/**

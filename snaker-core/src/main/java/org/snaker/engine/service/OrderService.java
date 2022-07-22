@@ -14,6 +14,5 @@ import java.util.List;
  * @since 2022-07-16
  */
 public interface OrderService extends IService<Order> {
-
-    List<Order> getActiveOrders(String id, String[] strings);
+    List<Order> listActiveChildOrders(String parentId, String[] excludedIds);
 }

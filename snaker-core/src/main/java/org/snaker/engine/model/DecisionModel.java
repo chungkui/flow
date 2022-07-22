@@ -20,7 +20,6 @@ import org.snaker.engine.DecisionHandler;
 import org.snaker.engine.Expression;
 import org.snaker.engine.SnakerException;
 import org.snaker.engine.core.Execution;
-import org.snaker.engine.core.ServiceContext;
 import org.snaker.engine.helper.ClassHelper;
 import org.snaker.engine.helper.StringHelper;
 
@@ -32,7 +31,7 @@ import org.snaker.engine.helper.StringHelper;
 public class DecisionModel extends NodeModel {
 	private static final Logger log = LoggerFactory.getLogger(DecisionModel.class);
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -806621814645169999L;
 	/**
@@ -51,12 +50,10 @@ public class DecisionModel extends NodeModel {
 	 * 表达式解析器
 	 */
 	private transient Expression expression;
-	
+
 	public void exec(Execution execution) {
 		log.info(execution.getOrder().getId() + "->decision execution.getArgs():" + execution.getArgs());
-		if(expression == null) {
-			expression = ServiceContext.getContext().find(Expression.class);
-		}
+
 		log.info("expression is " + expression);
 		if(expression == null) throw new SnakerException("表达式解析器为空，请检查配置.");
 		String next = null;
@@ -85,7 +82,7 @@ public class DecisionModel extends NodeModel {
 		}
 		if(!isfound) throw new SnakerException(execution.getOrder().getId() + "->decision节点无法确定下一步执行路线");
 	}
-	
+
 	public String getExpr() {
 		return expr;
 	}

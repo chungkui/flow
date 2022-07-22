@@ -14,21 +14,20 @@
  */
 package org.snaker.engine.scheduling.quartz;
 
-import java.util.Map;
-
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.snaker.engine.core.SnakerEngine;
-import org.snaker.engine.core.ServiceContext;
 import org.snaker.engine.entity.po.Process;
 import org.snaker.engine.helper.AssertHelper;
 import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.NodeModel;
 import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.scheduling.IScheduler;
+
+import java.util.Map;
 
 /**
  * 抽象的job类
@@ -44,7 +43,7 @@ public abstract class AbstractJob implements Job {
 	/**
 	 * 流程引擎
 	 */
-	protected SnakerEngine engine = ServiceContext.getEngine();
+	protected SnakerEngine engine;
 
 	@SuppressWarnings("unchecked")
 	public void execute(JobExecutionContext context)
@@ -93,9 +92,6 @@ public abstract class AbstractJob implements Job {
 	 * @return
 	 */
 	protected IScheduler schedule() {
-	    if(scheduler == null) {
-	    	scheduler = ServiceContext.getContext().find(IScheduler.class);
-	    }
 	    return scheduler;
 	}
 }

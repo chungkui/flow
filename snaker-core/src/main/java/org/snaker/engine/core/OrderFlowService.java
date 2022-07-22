@@ -14,6 +14,7 @@
  */
 package org.snaker.engine.core;
 
+import java.util.List;
 import java.util.Map;
 
 import org.snaker.engine.entity.po.Order;
@@ -124,4 +125,8 @@ public interface OrderFlowService {
 	 * @param id
 	 */
 	void cascadeRemove(String id);
+
+
+	List<Order> listActiveChildOrders(String parentId, String[] excludedIds);
+
 }

@@ -19,7 +19,10 @@ import java.util.List;
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
-    public List<Order> getActiveOrders(String id, String[] strings) {
-        return this.baseMapper.getActiveOrders(id,strings);
+
+
+    @Override
+    public List<Order> listActiveChildOrders(String parentId, String[] excludedIds) {
+        return this.baseMapper.listActiveChildOrders(parentId,excludedIds);
     }
 }

@@ -4,25 +4,47 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="org.snaker.engine.entity.po.Task">
-        <id column="id" property="id" />
-        <result column="order_Id" property="orderId" />
-        <result column="task_Name" property="taskName" />
-        <result column="display_Name" property="displayName" />
-        <result column="task_Type" property="taskType" />
-        <result column="perform_Type" property="performType" />
-        <result column="operator" property="operator" />
-        <result column="create_Time" property="createTime" />
-        <result column="finish_Time" property="finishTime" />
-        <result column="expire_Time" property="expireTime" />
-        <result column="action_Url" property="actionUrl" />
-        <result column="parent_Task_Id" property="parentTaskId" />
-        <result column="variable" property="variable" />
-        <result column="version" property="version" />
+        <id column="id" property="id"/>
+        <result column="order_Id" property="orderId"/>
+        <result column="task_Name" property="taskName"/>
+        <result column="display_Name" property="displayName"/>
+        <result column="task_Type" property="taskType"/>
+        <result column="perform_Type" property="performType"/>
+        <result column="operator" property="operator"/>
+        <result column="create_Time" property="createTime"/>
+        <result column="finish_Time" property="finishTime"/>
+        <result column="expire_Time" property="expireTime"/>
+        <result column="action_Url" property="actionUrl"/>
+        <result column="parent_Task_Id" property="parentTaskId"/>
+        <result column="variable" property="variable"/>
+        <result column="version" property="version"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, order_Id, task_Name, display_Name, task_Type, perform_Type, operator, create_Time, finish_Time, expire_Time, action_Url, parent_Task_Id, variable, version
+        id
+        , order_Id, task_Name, display_Name, task_Type, perform_Type, operator, create_Time, finish_Time, expire_Time, action_Url, parent_Task_Id, variable, version
     </sql>
+    <select id="listActiveTasks" resultType="org.snaker.engine.entity.po.Task">
+        <include refid="selectActiveTasksPart"/>
+        <where>
+            1=1 and
+            <if test="orderId != null and orderId != ''">
+                and order_Id = #{orderId,jdbcType=VARCHAR}
+            </if>
+            <if test="excludedIds != null and excludedIds.length != 0">
+                and id not in
+                <foreach collection="excludedIds" index="index" item="id" separator="," open="(" close=")">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="names != null and names.length != 0">
+                and task_Name in
+                <foreach collection="names" index="index" item="taskName" open="(" close=")" separator=",">
+                    #{taskName,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+    </select>
 
 </mapper>

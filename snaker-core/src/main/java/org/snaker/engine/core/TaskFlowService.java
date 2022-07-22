@@ -159,4 +159,6 @@ public interface TaskFlowService {
      * @return
      */
     TaskModel getTaskModel(String taskId);
+
+    List<Task> listActiveTasks(String id, String[] excludedIds, String[] names);
 }

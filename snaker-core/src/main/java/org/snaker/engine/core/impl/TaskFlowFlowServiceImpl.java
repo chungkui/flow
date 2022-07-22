@@ -14,20 +14,14 @@
  */
 package org.snaker.engine.core.impl;
 
-import java.util.*;
-
 import cn.hutool.extra.cglib.CglibUtil;
 import org.snaker.engine.*;
+import org.snaker.engine.core.Execution;
 import org.snaker.engine.core.SnakerEngine;
 import org.snaker.engine.core.TaskFlowService;
-import org.snaker.engine.core.Execution;
-import org.snaker.engine.core.ServiceContext;
 import org.snaker.engine.cost.FlowState;
 import org.snaker.engine.entity.po.Process;
-import org.snaker.engine.entity.po.HistTask;
-import org.snaker.engine.entity.po.Order;
-import org.snaker.engine.entity.po.Task;
-import org.snaker.engine.entity.po.TaskActor;
+import org.snaker.engine.entity.po.*;
 import org.snaker.engine.helper.AssertHelper;
 import org.snaker.engine.helper.DateHelper;
 import org.snaker.engine.helper.JsonHelper;
@@ -40,6 +34,9 @@ import org.snaker.engine.model.TaskModel;
 import org.snaker.engine.model.TaskModel.PerformType;
 import org.snaker.engine.model.TaskModel.TaskType;
 import org.snaker.engine.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.*;
 
 /**
  * 任务执行业务类
@@ -51,7 +48,10 @@ public class TaskFlowFlowServiceImpl implements TaskFlowService {
     private static final String START = "start";
 
     //访问策略接口
-    private TaskAccessStrategy strategy = null;
+    @Autowired
+    // todo GeneralAccessStrategy默认值
+    private TaskAccessStrategy strategy=new GeneralAccessStrategy();
+    @Autowired
     private TaskService taskService;
     Completion completion;
     TaskActorService taskActorService;
@@ -546,15 +546,12 @@ public class TaskFlowFlowServiceImpl implements TaskFlowService {
     }
 
     public TaskAccessStrategy getStrategy() {
-        if (strategy != null) {
-            return strategy;
-        }
-        strategy = ServiceContext.find(TaskAccessStrategy.class);
-        if (strategy == null) {
-            ServiceContext.put(TaskAccessStrategy.class.getName(), GeneralAccessStrategy.class);
-            strategy = ServiceContext.find(TaskAccessStrategy.class);
-        }
         return strategy;
+    }
+
+    @Override
+    public List<Task> listActiveTasks(String id, String[] excludedIds, String[] names) {
+        return taskService.listActiveTasks(id,excludedIds,names);
     }
 
     public List<Task> getActiveTasks(String id) {

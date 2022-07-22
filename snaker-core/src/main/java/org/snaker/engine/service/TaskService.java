@@ -19,5 +19,5 @@ public interface TaskService extends IService<Task> {
     List<Task> getNextActiveTasks(String id);
     List<Task> getNextActiveTasks(String id,String name,String pid);
 
-    List<Task> getActiveTasks(String id, String[] strings,String[] activeNodes);
+    List<Task> listActiveTasks(String id, String[] excludedIds,String[] activeNodes);
 }
