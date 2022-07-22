@@ -14,8 +14,8 @@
  */
 package org.snaker.engine.test;
 
-import org.snaker.engine.IProcessService;
-import org.snaker.engine.SnakerEngine;
+import org.snaker.engine.core.ProcessFlowService;
+import org.snaker.engine.core.SnakerEngine;
 import org.snaker.engine.cfg.Configuration;
 
 /**
@@ -26,7 +26,7 @@ import org.snaker.engine.cfg.Configuration;
 public class TestSnakerBase {
 	protected String processId;
 	protected SnakerEngine engine = getEngine();
-	protected IProcessService processService = engine.process();
+	protected ProcessFlowService processService = engine.process();
 	protected SnakerEngine getEngine() {
 		return new Configuration().buildSnakerEngine();
 	}

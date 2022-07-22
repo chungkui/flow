@@ -21,7 +21,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.snaker.engine.SnakerEngine;
+import org.snaker.engine.core.SnakerEngine;
 import org.snaker.engine.core.ServiceContext;
 import org.snaker.engine.entity.po.Process;
 import org.snaker.engine.helper.AssertHelper;

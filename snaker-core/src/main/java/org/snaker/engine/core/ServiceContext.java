@@ -19,7 +19,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.snaker.engine.Context;
-import org.snaker.engine.SnakerEngine;
 import org.snaker.engine.helper.AssertHelper;
 
 /**
@@ -30,17 +29,17 @@ import org.snaker.engine.helper.AssertHelper;
  */
 public abstract class ServiceContext {
 	private static final Logger log = LoggerFactory.getLogger(ServiceContext.class);
-	
+
 	/**
 	 * 上下文接口服务{@link Context}
 	 */
 	private static Context context;
-	
+
 	/**
 	 * 流程引擎的引用
 	 */
 	private static SnakerEngine engine;
-	
+
 	/**
 	 * 获取Context实现类
 	 * @return
@@ -48,7 +47,7 @@ public abstract class ServiceContext {
 	public static Context getContext() {
 		return context;
 	}
-	
+
 	/**
 	 * 设置Context实现类
 	 * @param context
@@ -56,7 +55,7 @@ public abstract class ServiceContext {
 	public static void setContext(Context context) {
 		ServiceContext.context = context;
 	}
-	
+
 	/**
 	 * 获取注册的引擎实例
 	 * @return
@@ -68,7 +67,7 @@ public abstract class ServiceContext {
 		}
 		return engine;
 	}
-	
+
 	/**
 	 * 向上下文添加服务实例
 	 * @param name 服务名称
@@ -81,7 +80,7 @@ public abstract class ServiceContext {
 		}
 		context.put(name, object);
 	}
-	
+
 	/**
 	 * 向上下文添加服务实例
 	 * @param name 服务名称
@@ -94,7 +93,7 @@ public abstract class ServiceContext {
 		}
 		context.put(name, clazz);
 	}
-	
+
 	/**
 	 * 根据服务名称判断是否存在服务实例
 	 * @param name 服务名称
@@ -114,7 +113,7 @@ public abstract class ServiceContext {
 		AssertHelper.notNull(context, "未注册服务上下文");
 		return context.find(clazz);
 	}
-	
+
 	/**
 	 * 对外部提供的查找对象实例列表方法，根据class类型查找集合
 	 * @param clazz 服务类型
@@ -124,7 +123,7 @@ public abstract class ServiceContext {
 		AssertHelper.notNull(context, "未注册服务上下文");
 		return context.findList(clazz);
 	}
-	
+
 	/**
 	 * 对外部提供的查找对象方法，根据名称、class类型查找
 	 * @param name 服务名称

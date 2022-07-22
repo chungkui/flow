@@ -12,16 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.snaker.engine.core;
+package org.snaker.engine.core.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.snaker.engine.*;
-import org.snaker.engine.access.transaction.TransactionInterceptor;
-import org.snaker.engine.cache.CacheManager;
-import org.snaker.engine.cache.CacheManagerAware;
-import org.snaker.engine.cache.memory.MemoryCacheManager;
-import org.snaker.engine.cfg.Configuration;
+import org.snaker.engine.core.*;
 import org.snaker.engine.entity.po.Order;
 import org.snaker.engine.entity.po.Process;
 import org.snaker.engine.entity.po.Task;
@@ -30,7 +25,6 @@ import org.snaker.engine.helper.DateHelper;
 import org.snaker.engine.helper.JsonHelper;
 import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.*;
-import org.snaker.engine.service.OrderService;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,65 +39,33 @@ import java.util.Map;
  */
 public class SnakerEngineImpl implements SnakerEngine {
     private static final Logger log = LoggerFactory.getLogger(SnakerEngineImpl.class);
-    /**
-     * Snaker配置对象
-     */
-    protected Configuration configuration;
+
     /**
      * 流程定义业务类
      */
-    protected IProcessService processService;
+    protected ProcessFlowService processFlowService;
     /**
      * 流程实例业务类
      */
-    protected IOrderService orderFlowService;
-    OrderService orderService;
+    protected OrderFlowService orderFlowService;
+
     /**
      * 任务业务类
      */
-    protected ITaskService taskService;
+    protected TaskFlowService taskFlowService;
 
     /**
      * 管理业务类
      */
-    protected IManagerService managerService;
-
-    /**
-     * 根据serviceContext上下文，查找processService、orderService、taskService服务
-     */
-    public SnakerEngine configure(Configuration config) {
-        this.configuration = config;
-        processService = ServiceContext.find(IProcessService.class);
-        orderFlowService = ServiceContext.find(IOrderService.class);
-        taskService = ServiceContext.find(ITaskService.class);
-        managerService = ServiceContext.find(IManagerService.class);
-
-        /*
-         * 无spring环境，DBAccess的实现类通过服务上下文获取
-         */
-
-        CacheManager cacheManager = ServiceContext.find(CacheManager.class);
-        if (cacheManager == null) {
-            //默认使用内存缓存管理器
-            cacheManager = new MemoryCacheManager();
-        }
-        List<CacheManagerAware> cacheServices = ServiceContext.findList(CacheManagerAware.class);
-        for (CacheManagerAware cacheService : cacheServices) {
-            cacheService.setCacheManager(cacheManager);
-        }
-        return this;
-    }
-
-
+    protected ManagerFlowService managerFlowService;
 
     /**
      * 获取流程定义服务
      */
-    public IProcessService process() {
-        AssertHelper.notNull(processService);
-        return processService;
+    public ProcessFlowService process() {
+        AssertHelper.notNull(processFlowService);
+        return processFlowService;
     }
-
 
 
     /**
@@ -111,7 +73,7 @@ public class SnakerEngineImpl implements SnakerEngine {
      *
      * @since 1.2.2
      */
-    public IOrderService order() {
+    public OrderFlowService order() {
         AssertHelper.notNull(orderFlowService);
         return orderFlowService;
     }
@@ -121,9 +83,9 @@ public class SnakerEngineImpl implements SnakerEngine {
      *
      * @since 1.2.2
      */
-    public ITaskService task() {
-        AssertHelper.notNull(taskService);
-        return taskService;
+    public TaskFlowService task() {
+        AssertHelper.notNull(taskFlowService);
+        return taskFlowService;
     }
 
     /**
@@ -131,9 +93,9 @@ public class SnakerEngineImpl implements SnakerEngine {
      *
      * @since 1.4
      */
-    public IManagerService manager() {
-        AssertHelper.notNull(managerService);
-        return managerService;
+    public ManagerFlowService manager() {
+        AssertHelper.notNull(managerFlowService);
+        return managerFlowService;
     }
 
     /**
@@ -307,7 +269,7 @@ public class SnakerEngineImpl implements SnakerEngine {
      * 根据流程实例ID，操作人ID，参数列表按照节点模型model创建新的自由任务
      */
     public List<Task> createFreeTask(String orderId, String operator, Map<String, Object> args, TaskModel model) {
-        Order order = orderService.getById(orderId);
+        Order order = orderFlowService.getOrderById(orderId);
         AssertHelper.notNull(order, "指定的流程实例[id=" + orderId + "]已完成或不存在");
         order.setLastUpdator(operator);
         order.setLastUpdateTime(DateHelper.getTime());
@@ -331,7 +293,7 @@ public class SnakerEngineImpl implements SnakerEngine {
         if (log.isDebugEnabled()) {
             log.debug("任务[taskId=" + taskId + "]已完成");
         }
-        Order order = orderService .getById(task.getOrderId());
+        Order order = orderFlowService.getOrderById(task.getOrderId());
         AssertHelper.notNull(order, "指定的流程实例[id=" + task.getOrderId() + "]已完成或不存在");
         order.setLastUpdator(operator);
         order.setLastUpdateTime(DateHelper.getTime());
@@ -356,20 +318,19 @@ public class SnakerEngineImpl implements SnakerEngine {
         return execution;
     }
 
-    public void setProcessService(IProcessService processService) {
-        this.processService = processService;
+    public void setProcessFlowService(ProcessFlowService processFlowService) {
+        this.processFlowService = processFlowService;
     }
 
-    public void setOrderService(IOrderService orderService) {
-        this.orderFlowService = orderService;
+    public void setOrderFlowService(OrderFlowService orderFlowService) {
+        this.orderFlowService = orderFlowService;
     }
 
-    public void setTaskService(ITaskService taskService) {
-        this.taskService = taskService;
+    public void setTaskFlowService(TaskFlowService taskFlowService) {
+        this.taskFlowService = taskFlowService;
     }
 
-
-    public void setManagerService(IManagerService managerService) {
-        this.managerService = managerService;
+    public void setManagerFlowService(ManagerFlowService managerFlowService) {
+        this.managerFlowService = managerFlowService;
     }
 }

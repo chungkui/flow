@@ -12,16 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.snaker.engine;
+package org.snaker.engine.core;
 
-import java.util.List;
-import java.util.Map;
-
-import org.snaker.engine.cfg.Configuration;
-import org.snaker.engine.core.Execution;
 import org.snaker.engine.entity.po.Order;
 import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.model.TaskModel;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 流程引擎接口
@@ -29,40 +27,34 @@ import org.snaker.engine.model.TaskModel;
  * @since 1.0
  */
 public interface SnakerEngine {
-	 static final String ADMIN = "snaker.admin";
-	 static final String AUTO = "snaker.auto";
-     static final String ID = "snaker.orderNo";
-	/**
-	 * 根据Configuration对象配置实现类
-	 * @param config 全局配置对象
-	 * @return SnakerEngine 流程引擎
-	 */
-	 SnakerEngine configure(Configuration config);
+	 String ADMIN = "snaker.admin";
+	 String AUTO = "snaker.auto";
+     String ID = "snaker.orderNo";
 
 	/**
 	 * 获取process服务
 	 * @return IProcessService 流程定义服务
 	 */
-	 IProcessService process();
+	 ProcessFlowService process();
 
 
 	/**
 	 * 获取实例服务
 	 * @return IQueryService 流程实例服务
 	 */
-	 IOrderService order();
+	 OrderFlowService order();
 
 	/**
 	 * 获取任务服务
 	 * @return ITaskService 任务服务
 	 */
-	 ITaskService task();
+	 TaskFlowService task();
 
 	/**
 	 * 获取管理服务
 	 * @return IManagerService 管理服务
 	 */
-	 IManagerService manager();
+	 ManagerFlowService manager();
 
 	/**
 	 * 根据流程定义ID启动流程实例

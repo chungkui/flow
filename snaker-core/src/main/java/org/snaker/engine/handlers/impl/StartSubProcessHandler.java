@@ -20,13 +20,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.snaker.engine.SnakerEngine;
+import org.snaker.engine.core.SnakerEngine;
 import org.snaker.engine.SnakerException;
-import org.snaker.engine.access.QueryFilter;
 import org.snaker.engine.core.Execution;
 import org.snaker.engine.entity.po.Order;
 import org.snaker.engine.entity.po.Process;
-import org.snaker.engine.entity.po.Order;
 import org.snaker.engine.handlers.IHandler;
 import org.snaker.engine.helper.AssertHelper;
 import org.snaker.engine.model.SubProcessModel;

@@ -12,11 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.snaker.engine.core;
+package org.snaker.engine.core.impl;
 
 import java.util.List;
 
-import org.snaker.engine.IManagerService;
+import org.snaker.engine.core.ManagerFlowService;
 import org.snaker.engine.access.QueryFilter;
 import org.snaker.engine.cost.FlowState;
 import org.snaker.engine.entity.po.Surrogate;
@@ -30,7 +30,7 @@ import org.snaker.engine.service.SurrogateService;
  * @author yuqs
  * @since 1.4
  */
-public class ManagerService  implements IManagerService {
+public class ManagerFlowFlowServiceImpl implements ManagerFlowService {
 	SurrogateService surrogateService;
 	public void saveOrUpdate(Surrogate surrogate) {
 		AssertHelper.notNull(surrogate);

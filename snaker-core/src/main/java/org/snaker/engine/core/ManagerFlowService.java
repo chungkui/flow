@@ -12,12 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.snaker.engine;
+package org.snaker.engine.core;
 
-import java.util.List;
-
-import org.snaker.engine.access.Page;
-import org.snaker.engine.access.QueryFilter;
 import org.snaker.engine.entity.po.Surrogate;
 
 /**
@@ -27,7 +23,7 @@ import org.snaker.engine.entity.po.Surrogate;
  * @author yuqs
  * @since 1.4
  */
-public interface IManagerService {
+public interface ManagerFlowService {
 	/**
 	 * 保存或更新委托代理对象
 	 * @param surrogate 委托代理对象

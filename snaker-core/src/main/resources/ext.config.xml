@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <config>
-	<bean class="org.snaker.engine.core.SnakerEngineImpl" proxy="transaction"/>
-	<bean class="org.snaker.engine.core.TaskFlowService" proxy="transaction"/>
-	<bean class="org.snaker.engine.core.OrderFlowService" proxy="transaction"/>
-	<bean class="org.snaker.engine.core.ProcessFlowService" proxy="transaction"/>
+	<bean class="org.snaker.engine.core.impl.SnakerEngineImpl" proxy="transaction"/>
+	<bean class="org.snaker.engine.core.impl.TaskFlowFlowServiceImpl" proxy="transaction"/>
+	<bean class="org.snaker.engine.core.impl.OrderFlowFlowServiceImpl" proxy="transaction"/>
+	<bean class="org.snaker.engine.core.impl.ProcessFlowFlowServiceImpl" proxy="transaction"/>
 	<bean class="org.snaker.engine.core.QueryService" proxy="transaction"/>
-	<bean class="org.snaker.engine.core.ManagerService" proxy="transaction"/>
+	<bean class="org.snaker.engine.core.impl.ManagerFlowFlowServiceImpl" proxy="transaction"/>
 </config>

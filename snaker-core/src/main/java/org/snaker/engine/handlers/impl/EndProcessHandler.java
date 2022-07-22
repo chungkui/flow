@@ -16,7 +16,7 @@ package org.snaker.engine.handlers.impl;
 
 import java.util.List;
 
-import org.snaker.engine.SnakerEngine;
+import org.snaker.engine.core.SnakerEngine;
 import org.snaker.engine.SnakerException;
 import org.snaker.engine.core.Execution;
 
