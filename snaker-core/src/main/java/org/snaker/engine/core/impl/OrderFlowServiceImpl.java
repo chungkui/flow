@@ -34,6 +34,7 @@ import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 流程实例业务类
@@ -139,6 +140,7 @@ public class OrderFlowServiceImpl implements OrderFlowService {
     /**
      * 流程实例数据会保存至活动实例表、历史实例表
      */
+    @Transactional(rollbackFor = Exception.class)
     public void saveOrder(Order order) {
         HistOrder history = CglibUtil.copy(order, HistOrder.class);
         history.setOrderState(FlowState.STATE_ACTIVE.getState());
@@ -169,6 +171,7 @@ public class OrderFlowServiceImpl implements OrderFlowService {
     /**
      * 删除指定的抄送记录
      */
+    @Transactional(rollbackFor = Exception.class)
     public void deleteCCOrder(String orderId, String actorId) {
         List<CcOrder> ccorders = ccOrderService.list(orderId, actorId);
         AssertHelper.notNull(ccorders);
@@ -180,6 +183,7 @@ public class OrderFlowServiceImpl implements OrderFlowService {
     /**
      * 删除活动流程实例数据，更新历史流程实例的状态、结束时间
      */
+    @Transactional(rollbackFor = Exception.class)
     public void complete(String orderId) {
         Order order = orderService.getById(orderId);
         HistOrder history = histOrderService.getById(orderId);
@@ -205,6 +209,7 @@ public class OrderFlowServiceImpl implements OrderFlowService {
     /**
      * 强制中止活动实例,并强制完成活动任务
      */
+    @Transactional(rollbackFor = Exception.class)
     public void terminate(String orderId, String operator) {
 
         List<Task> tasks = taskService.listByOrderId(orderId);
@@ -229,6 +234,7 @@ public class OrderFlowServiceImpl implements OrderFlowService {
      * @param orderId 实例id
      * @return 活动实例对象
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order resume(String orderId) {
         HistOrder historyOrder = histOrderService.getById(orderId);
         Order order = historyOrder.undo();
@@ -252,6 +258,7 @@ public class OrderFlowServiceImpl implements OrderFlowService {
      *
      * @param id 实例id
      */
+    @Transactional(rollbackFor = Exception.class)
     public void cascadeRemove(String id) {
         HistOrder historyOrder = histOrderService.getById(id);
         AssertHelper.notNull(historyOrder);

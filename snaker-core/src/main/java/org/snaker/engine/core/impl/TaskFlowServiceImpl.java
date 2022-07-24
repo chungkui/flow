@@ -36,6 +36,7 @@ import org.snaker.engine.model.TaskModel.TaskType;
 import org.snaker.engine.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -64,6 +65,7 @@ public class TaskFlowServiceImpl implements TaskFlowService {
     /**
      * 完成指定任务
      */
+    @Transactional(rollbackFor = Exception.class)
     public Task complete(String taskId) {
         return complete(taskId, null, null);
     }
@@ -71,6 +73,7 @@ public class TaskFlowServiceImpl implements TaskFlowService {
     /**
      * 完成指定任务
      */
+    @Transactional(rollbackFor = Exception.class)
     public Task complete(String taskId, String operator) {
         return complete(taskId, operator, null);
     }
@@ -81,6 +84,7 @@ public class TaskFlowServiceImpl implements TaskFlowService {
      *
      * @see SnakerEngineImpl#executeTask(String, String, java.util.Map)
      */
+    @Transactional(rollbackFor = Exception.class)
     public Task complete(String taskId, String operator, Map<String, Object> args) {
         Task task = taskService.getById(taskId);
         AssertHelper.notNull(task, "指定的任务[id=" + taskId + "]不存在");
@@ -233,6 +237,7 @@ public class TaskFlowServiceImpl implements TaskFlowService {
     /**
      * 向指定任务移除参与者
      */
+    @Transactional(rollbackFor = Exception.class)
     public void removeTaskActor(String taskId, String... actors) {
         Task task = taskService.getById(taskId);
         AssertHelper.notNull(task, "指定的任务[id=" + taskId + "]不存在");
@@ -268,6 +273,7 @@ public class TaskFlowServiceImpl implements TaskFlowService {
     /**
      * 撤回指定的任务
      */
+    @Transactional(rollbackFor = Exception.class)
     public Task withdrawTask(String taskId, String operator) {
         HistTask hist = histTaskService.getById(taskId);
         AssertHelper.notNull(hist, "指定的历史任务[id=" + taskId + "]不存在");
@@ -296,6 +302,7 @@ public class TaskFlowServiceImpl implements TaskFlowService {
     /**
      * 驳回任务
      */
+    @Transactional(rollbackFor = Exception.class)
     public Task rejectTask(ProcessModel model, Task currentTask) {
         String parentTaskId = currentTask.getParentTaskId();
         if (StringHelper.isEmpty(parentTaskId) || parentTaskId.equals(START)) {

@@ -14,12 +14,9 @@
  */
 package org.snaker.engine.service;
 
-import org.snaker.engine.access.Page;
-import org.snaker.engine.access.QueryFilter;
 import org.snaker.engine.entity.po.Process;
 
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * 流程定义业务类
@@ -70,20 +67,6 @@ public interface ProcessFlowService {
 	 */
 	Process getProcessByVersion(String name, Integer version);
 
-	/**
-	 * 根据给定的参数列表args查询process
-	 * @param filter 查询过滤器
-	 * @return List<Process> 流程定义对象集合
-	 */
-	List<Process> getProcesss(QueryFilter filter);
-
-	/**
-	 * 根据给定的参数列表args分页查询process
-	 * @param page 分页对象
-	 * @param filter 查询过滤器
-	 * @return List<Process> 流程定义对象集合
-	 */
-	List<Process> getProcesss(Page<Process> page, QueryFilter filter);
 
 	/**
 	 * 根據InputStream輸入流，部署流程定义

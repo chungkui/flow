@@ -28,6 +28,7 @@ import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -114,6 +115,7 @@ public class SnakerEngineImpl implements SnakerEngine {
     /**
      * 根据流程定义ID启动流程实例
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order startInstanceById(String id) {
         return startInstanceById(id, null, null);
     }
@@ -121,6 +123,7 @@ public class SnakerEngineImpl implements SnakerEngine {
     /**
      * 根据流程定义ID，操作人ID启动流程实例
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order startInstanceById(String id, String operator) {
         return startInstanceById(id, operator, null);
     }
@@ -128,6 +131,7 @@ public class SnakerEngineImpl implements SnakerEngine {
     /**
      * 根据流程定义ID，操作人ID，参数列表启动流程实例
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order startInstanceById(String id, String operator, Map<String, Object> args) {
         if (args == null) args = new HashMap<String, Object>();
         Process process = process().getProcessById(id);
@@ -140,6 +144,7 @@ public class SnakerEngineImpl implements SnakerEngine {
      *
      * @since 1.3
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order startInstanceByName(String name) {
         return startInstanceByName(name, null, null, null);
     }
@@ -149,6 +154,7 @@ public class SnakerEngineImpl implements SnakerEngine {
      *
      * @since 1.3
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order startInstanceByName(String name, Integer version) {
         return startInstanceByName(name, version, null, null);
     }
@@ -158,6 +164,7 @@ public class SnakerEngineImpl implements SnakerEngine {
      *
      * @since 1.3
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order startInstanceByName(String name, Integer version,
                                      String operator) {
         return startInstanceByName(name, version, operator, null);
@@ -168,6 +175,7 @@ public class SnakerEngineImpl implements SnakerEngine {
      *
      * @since 1.3
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order startInstanceByName(String name, Integer version,
                                      String operator, Map<String, Object> args) {
         if (args == null) args = new HashMap<String, Object>();
@@ -175,7 +183,6 @@ public class SnakerEngineImpl implements SnakerEngine {
         process().check(process, name);
         return startProcess(process, operator, args);
     }
-
     private Order startProcess(Process process, String operator, Map<String, Object> args) {
         Execution execution = execute(process, operator, args, null, null);
         if (process.getModel() != null) {
@@ -190,6 +197,7 @@ public class SnakerEngineImpl implements SnakerEngine {
     /**
      * 根据父执行对象启动子流程实例（用于启动子流程）
      */
+    @Transactional(rollbackFor = Exception.class)
     public Order startInstanceByExecution(Execution execution) {
         Process process = execution.getProcess();
         StartModel start = process.getModel().getStart();
@@ -225,6 +233,7 @@ public class SnakerEngineImpl implements SnakerEngine {
     /**
      * 根据任务主键ID执行任务
      */
+    @Transactional(rollbackFor = Exception.class)
     public List<Task> executeTask(String taskId) {
         return executeTask(taskId, null);
     }
@@ -232,6 +241,7 @@ public class SnakerEngineImpl implements SnakerEngine {
     /**
      * 根据任务主键ID，操作人ID执行任务
      */
+    @Transactional(rollbackFor = Exception.class)
     public List<Task> executeTask(String taskId, String operator) {
         return executeTask(taskId, operator, null);
     }
@@ -239,6 +249,7 @@ public class SnakerEngineImpl implements SnakerEngine {
     /**
      * 根据任务主键ID，操作人ID，参数列表执行任务
      */
+    @Transactional(rollbackFor = Exception.class)
     public List<Task> executeTask(String taskId, String operator, Map<String, Object> args) {
         //完成任务，并且构造执行对象
         Execution execution = execute(taskId, operator, args);
@@ -257,6 +268,7 @@ public class SnakerEngineImpl implements SnakerEngine {
      * 1、nodeName为null时，则驳回至上一步处理
      * 2、nodeName不为null时，则任意跳转，即动态创建转移
      */
+    @Transactional(rollbackFor = Exception.class)
     public List<Task> executeAndJumpTask(String taskId, String operator, Map<String, Object> args, String nodeName) {
         Execution execution = execute(taskId, operator, args);
         if (execution == null) return Collections.emptyList();
@@ -281,6 +293,7 @@ public class SnakerEngineImpl implements SnakerEngine {
     /**
      * 根据流程实例ID，操作人ID，参数列表按照节点模型model创建新的自由任务
      */
+    @Transactional(rollbackFor = Exception.class)
     public List<Task> createFreeTask(String orderId, String operator, Map<String, Object> args, TaskModel model) {
         Order order = orderFlowService.getOrderById(orderId);
         AssertHelper.notNull(order, "指定的流程实例[id=" + orderId + "]已完成或不存在");
