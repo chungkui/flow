@@ -32,6 +32,8 @@ import org.snaker.engine.helper.JsonHelper;
 import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 流程实例业务类
@@ -39,14 +41,21 @@ import org.snaker.engine.service.*;
  * @author yuqs
  * @since 1.0
  */
-public class OrderFlowFlowServiceImpl  implements OrderFlowService {
+@Service
+public class OrderFlowServiceImpl implements OrderFlowService {
+    @Autowired
     OrderService orderService;
-
+    @Autowired
     CcOrderService ccOrderService;
+    @Autowired
     HistOrderService histOrderService;
+    @Autowired
     private Completion completion;
+    @Autowired
     private TaskService taskService;
-    TaskFlowFlowServiceImpl taskFlowService;
+    @Autowired
+    TaskFlowServiceImpl taskFlowService;
+    @Autowired
     HistTaskService histTaskService;
 
     public Order getOrderById(String orderId) {
@@ -56,7 +65,7 @@ public class OrderFlowFlowServiceImpl  implements OrderFlowService {
     /**
      * 创建活动实例
      *
-     * @see OrderFlowFlowServiceImpl#createOrder(Process, String, Map, String, String)
+     * @see OrderFlowServiceImpl#createOrder(Process, String, Map, String, String)
      */
     public Order createOrder(Process process, String operator, Map<String, Object> args) {
         return createOrder(process, operator, args, null, null);
@@ -133,7 +142,7 @@ public class OrderFlowFlowServiceImpl  implements OrderFlowService {
     public void saveOrder(Order order) {
         HistOrder history = CglibUtil.copy(order, HistOrder.class);
         history.setOrderState(FlowState.STATE_ACTIVE.getState());
-        this.saveOrder(order);
+        orderService.save(order);
         histOrderService.save(history);
     }
 
@@ -187,7 +196,7 @@ public class OrderFlowFlowServiceImpl  implements OrderFlowService {
     /**
      * 强制中止流程实例
      *
-     * @see OrderFlowFlowServiceImpl#terminate(String, String)
+     * @see OrderFlowServiceImpl#terminate(String, String)
      */
     public void terminate(String orderId) {
         terminate(orderId, null);
@@ -269,4 +278,5 @@ public class OrderFlowFlowServiceImpl  implements OrderFlowService {
     public List<Order> listActiveChildOrders(String parentId, String[] excludedIds){
         return orderService.listActiveChildOrders(parentId,excludedIds);
     }
+
 }

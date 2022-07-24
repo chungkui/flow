@@ -24,7 +24,6 @@ import org.snaker.engine.core.Execution;
 import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.handlers.IHandler;
 import org.snaker.engine.model.TaskModel;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 任务创建操作的处理器
@@ -37,8 +36,6 @@ public class CreateTaskHandler implements IHandler {
 	 * 任务模型
 	 */
 	private TaskModel model;
-	@Autowired
-	List<SnakerInterceptor> interceptors;
 	/**
 	 * 调用者需要提供任务模型
 	 * @param model 模型
@@ -53,11 +50,12 @@ public class CreateTaskHandler implements IHandler {
 	public void handle(Execution execution) {
 		List<Task> tasks = execution.getEngine().task().createTask(model, execution);
 		execution.addTasks(tasks);
+
 		/**
 		 *  从服务上下文中查找任务拦截器列表，依次对task集合进行拦截处理
 		 */
 		try {
-			for(SnakerInterceptor interceptor : interceptors) {
+			for(SnakerInterceptor interceptor : execution.getEngine().getInterceptors()) {
 				interceptor.intercept(execution);
 			}
 		} catch(Exception e) {

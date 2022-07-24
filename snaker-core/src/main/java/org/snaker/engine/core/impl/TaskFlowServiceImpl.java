@@ -35,6 +35,7 @@ import org.snaker.engine.model.TaskModel.PerformType;
 import org.snaker.engine.model.TaskModel.TaskType;
 import org.snaker.engine.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -44,7 +45,8 @@ import java.util.*;
  * @author yuqs
  * @since 1.0
  */
-public class TaskFlowFlowServiceImpl implements TaskFlowService {
+@Service
+public class TaskFlowServiceImpl implements TaskFlowService {
     private static final String START = "start";
 
     //访问策略接口

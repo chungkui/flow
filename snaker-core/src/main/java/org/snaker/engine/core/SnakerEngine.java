@@ -14,6 +14,7 @@
  */
 package org.snaker.engine.core;
 
+import org.snaker.engine.SnakerInterceptor;
 import org.snaker.engine.entity.po.Order;
 import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.model.TaskModel;
@@ -170,4 +171,6 @@ public interface SnakerEngine {
 	 * @return List<Task> 任务集合
 	 */
 	 List<Task> createFreeTask(String orderId, String operator, Map<String, Object> args, TaskModel model);
+
+	List<SnakerInterceptor> getInterceptors();
 }

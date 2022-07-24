@@ -17,7 +17,6 @@ package org.snaker.engine.handlers.impl;
 import java.util.List;
 
 
-import org.snaker.engine.access.QueryFilter;
 import org.snaker.engine.core.Execution;
 import org.snaker.engine.entity.po.Order;
 import org.snaker.engine.entity.po.Task;
@@ -26,6 +25,7 @@ import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.model.SubProcessModel;
 import org.snaker.engine.model.TaskModel;
 import org.snaker.engine.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 合并处理的抽象处理器
@@ -34,7 +34,6 @@ import org.snaker.engine.service.TaskService;
  * @since 1.0
  */
 public abstract class AbstractMergeHandler implements IHandler {
-	TaskService taskService;
 	public void handle(Execution execution) {
 		/**
 		 * 查询当前流程实例的无法参与合并的node列表

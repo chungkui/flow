@@ -26,5 +26,5 @@ public interface IHandler {
 	 * 子类需要实现的方法，来处理具体的操作
 	 * @param execution 执行对象
 	 */
-	public void handle(Execution execution);
+	void handle(Execution execution);
 }

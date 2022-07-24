@@ -34,6 +34,7 @@ import org.snaker.engine.service.HistOrderService;
 import org.snaker.engine.service.OrderFlowService;
 import org.snaker.engine.service.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.util.List;
@@ -43,9 +44,10 @@ import java.util.List;
  * @author yuqs
  * @since 1.0
  */
-public class ProcessFlowFlowServiceImpl implements ProcessFlowService,
+@Service
+public class ProcessFlowServiceImpl implements ProcessFlowService,
 		CacheManagerAware {
-	private static final Logger log = LoggerFactory.getLogger(ProcessFlowFlowServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ProcessFlowServiceImpl.class);
 	private static final String DEFAULT_SEPARATOR = ".";
 	/**
 	 * 流程定义对象cache名称
@@ -58,9 +60,13 @@ public class ProcessFlowFlowServiceImpl implements ProcessFlowService,
 	/**
 	 * cache manager
 	 */
+	@Autowired
 	private CacheManager cacheManager;
+	@Autowired
 	private ProcessService processService;
+	@Autowired
 	private HistOrderService histOrderService;
+	@Autowired
 	private OrderFlowService orderFlowService;
 	@Autowired
 	ModelParser modelParser;
@@ -274,23 +280,6 @@ public class ProcessFlowFlowServiceImpl implements ProcessFlowService,
 		processService.removeById(id);
 		clear(entity);
 	}
-
-//	/**
-//	 * 查询流程定义
-//	 */
-//	public List<Process> getProcesss(QueryFilter filter) {
-//		if(filter == null) filter = new QueryFilter();
-//		return access().getProcesss(null, filter);
-//	}
-//
-//	/**
-//	 * 分页查询流程定义
-//	 */
-//	public List<Process> getProcesss(Page<Process> page, QueryFilter filter) {
-//		AssertHelper.notNull(filter);
-//		return access().getProcesss(page, filter);
-//	}
-
 	/**
 	 * 缓存实体
 	 * @param entity 流程定义对象

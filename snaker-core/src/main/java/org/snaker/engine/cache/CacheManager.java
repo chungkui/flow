@@ -26,11 +26,11 @@ public interface CacheManager {
 	 * @return Cache
 	 * @throws CacheException
 	 */
-	public <K, V> Cache<K, V> getCache(String name) throws CacheException;
+	 <K, V> Cache<K, V> getCache(String name) throws CacheException;
 
     /**
      * 销毁cache
      * @throws CacheException
      */
-    public void destroy() throws CacheException;
+     void destroy() throws CacheException;
 }

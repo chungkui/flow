@@ -37,16 +37,13 @@ import org.snaker.engine.service.TaskService;
  * @since 1.0
  */
 public class EndProcessHandler implements IHandler {
-	private TaskService taskService;
-	private OrderService orderService;
-	private ProcessService processService;
 	/**
 	 * 结束当前流程实例，如果存在父流程，则触发父流程继续执行
 	 */
 	public void handle(Execution execution) {
 		SnakerEngine engine = execution.getEngine();
 		Order order = execution.getOrder();
-		List<Task> tasks =taskService.listActiveTasks(order.getId(),null,null);
+		List<Task> tasks =execution.getEngine().task().listActiveTasks(order.getId(),null,null);
 		for(Task task : tasks) {
 			if(task.isMajor()) throw new SnakerException("存在未完成的主办任务,请确认.");
 			engine.task().complete(task.getId(), SnakerEngine.AUTO);
@@ -60,9 +57,9 @@ public class EndProcessHandler implements IHandler {
 		 * 如果存在父流程，则重新构造Execution执行对象，交给父流程的SubProcessModel模型execute
 		 */
 		if(StringHelper.isNotEmpty(order.getParentId())) {
-			Order parentOrder =orderService.getById(order.getParentId()) ;
+			Order parentOrder = execution.getEngine().order().getOrderById(order.getParentId()) ;
 			if(parentOrder == null) return;
-			Process process = processService.getById(parentOrder.getProcessId());
+			Process process = execution.getEngine().process().getProcessById(parentOrder.getProcessId());
 			ProcessModel pm = process.getModel();
 			if(pm == null) return;
 			SubProcessModel spm = (SubProcessModel)pm.getNode(order.getParentNodeName());

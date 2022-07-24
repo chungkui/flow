@@ -16,6 +16,7 @@ package org.snaker.engine.core.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.snaker.engine.SnakerInterceptor;
 import org.snaker.engine.core.*;
 import org.snaker.engine.entity.po.Order;
 import org.snaker.engine.entity.po.Process;
@@ -42,7 +43,8 @@ import java.util.Map;
 @Service
 public class SnakerEngineImpl implements SnakerEngine {
     private static final Logger log = LoggerFactory.getLogger(SnakerEngineImpl.class);
-
+    @Autowired
+    private List<SnakerInterceptor> interceptors;
     /**
      * 流程定义业务类
      */
@@ -53,6 +55,10 @@ public class SnakerEngineImpl implements SnakerEngine {
      */
     @Autowired
     protected OrderFlowService orderFlowService;
+
+    public List<SnakerInterceptor> getInterceptors() {
+        return interceptors;
+    }
 
     /**
      * 任务业务类
