@@ -21,6 +21,7 @@ import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.model.TransitionModel;
 import org.snaker.engine.parser.ModelParser;
 import org.snaker.engine.parser.NodeParser;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,6 +37,7 @@ import java.io.IOException;
  * @author yuqs
  * @since 1.0
  */
+@Component
 public class ModelParserImpl implements ModelParser {
 	NodeParser nodeParser = null;
 	/**

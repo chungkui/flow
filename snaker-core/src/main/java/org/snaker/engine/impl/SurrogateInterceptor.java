@@ -20,6 +20,7 @@ import org.snaker.engine.SnakerInterceptor;
 import org.snaker.engine.core.Execution;
 import org.snaker.engine.entity.po.Task;
 import org.snaker.engine.helper.StringHelper;
+import org.springframework.stereotype.Component;
 
 /**
  * 委托代理拦截器
@@ -30,6 +31,7 @@ import org.snaker.engine.helper.StringHelper;
  * @author yuqs
  * @since 1.4
  */
+@Component
 public class SurrogateInterceptor implements SnakerInterceptor {
 	public void intercept(Execution execution) {
 		SnakerEngine engine = execution.getEngine();

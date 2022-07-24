@@ -52,8 +52,7 @@ public class TaskFlowServiceImpl implements TaskFlowService {
 
     //访问策略接口
     @Autowired
-    // todo GeneralAccessStrategy默认值
-    private TaskAccessStrategy strategy=new GeneralAccessStrategy();
+    private TaskAccessStrategy strategy;
     @Autowired
     private TaskService taskService;
     Completion completion;

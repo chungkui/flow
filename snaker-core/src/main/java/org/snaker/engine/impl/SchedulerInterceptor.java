@@ -28,6 +28,7 @@ import org.snaker.engine.scheduling.IScheduler;
 import org.snaker.engine.scheduling.JobEntity;
 import org.snaker.engine.scheduling.JobEntity.JobType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 时限控制拦截器
@@ -36,12 +37,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author yuqs
  * @since 1.4
  */
+@Component
 public class SchedulerInterceptor implements SnakerInterceptor {
 	private static final Logger log = LoggerFactory.getLogger(SchedulerInterceptor.class);
 	/**
 	 * 调度器接口
 	 */
-	@Autowired
+	@Autowired(required = false)
 	private IScheduler scheduler;
 	/**
 	 * 是否调度

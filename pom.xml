@@ -5,14 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>snaker-core</module>
-        <module>snaker-spring</module>
-        <module>snaker-ehcache</module>
         <module>snaker-quartz</module>
-        <module>snaker-jfinal</module>
-        <module>snaker-nutz</module>
-        <module>snaker-mybatis</module>
-        <module>snaker-hibernate</module>
-        <module>snaker-hibernate4</module>
         <module>snaker-spring-boot-starter</module>
         <module>snaker-mybatis-plus</module>
     </modules>

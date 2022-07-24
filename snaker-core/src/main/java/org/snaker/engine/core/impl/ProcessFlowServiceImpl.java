@@ -16,6 +16,7 @@ package org.snaker.engine.core.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.snaker.engine.core.OrderFlowService;
 import org.snaker.engine.core.ProcessFlowService;
 import org.snaker.engine.SnakerException;
 import org.snaker.engine.cache.Cache;
@@ -31,7 +32,6 @@ import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.parser.ModelParser;
 import org.snaker.engine.service.HistOrderService;
-import org.snaker.engine.service.OrderFlowService;
 import org.snaker.engine.service.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

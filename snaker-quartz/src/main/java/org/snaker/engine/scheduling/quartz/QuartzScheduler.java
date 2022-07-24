@@ -45,17 +45,19 @@ import org.snaker.engine.helper.ConfigHelper;
 import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.scheduling.IScheduler;
 import org.snaker.engine.scheduling.JobEntity;
+import org.springframework.stereotype.Component;
 
 /**
  * quartz框架实现的调度实例
  * @author yuqs
  * @since 1.4
  */
+@Component
 public class QuartzScheduler implements IScheduler {
 	private static final Logger log = LoggerFactory.getLogger(QuartzScheduler.class);
 	private SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 	private boolean isUseCalendar = false;
-	
+
 	private Scheduler getScheduler() {
 		try {
 			Scheduler scheduler = schedulerFactory.getScheduler();
@@ -79,7 +81,7 @@ public class QuartzScheduler implements IScheduler {
 			throw new SnakerException(e);
 		}
 	}
-	
+
 	/**
 	 * 根据job实体调度具体的任务
 	 */
@@ -104,7 +106,7 @@ public class QuartzScheduler implements IScheduler {
 	    	log.error("Quartz不支持的JOB类型:{}", entity.getJobType());
 	    	return;
 	    }
-	    
+
 	    JobDetail job = JobBuilder
 	    		.newJob(jobClazz)
 	    		.usingJobData(data)
@@ -142,7 +144,7 @@ public class QuartzScheduler implements IScheduler {
 			log.error(e.getMessage());
 		}
 	}
-	
+
 	private BaseCalendar build() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String holidays = ConfigHelper.getProperty(CONFIG_HOLIDAYS);
@@ -158,7 +160,7 @@ public class QuartzScheduler implements IScheduler {
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(date);
 					calendars.add(new GregorianCalendar(cal.get(Calendar.YEAR),
-							cal.get(Calendar.MONTH), 
+							cal.get(Calendar.MONTH),
 							cal.get(Calendar.DAY_OF_MONTH)));
 				}
 			} catch(Exception e) {
@@ -169,7 +171,7 @@ public class QuartzScheduler implements IScheduler {
 				holidayCal.setDaysExcluded(calendars);
 			}
 		}
-		
+
 		WeeklyCalendar weekdayCal = null;
 		if(StringHelper.isNotEmpty(weeks)) {
 			weekdayCal = new WeeklyCalendar(holidayCal);
@@ -183,12 +185,12 @@ public class QuartzScheduler implements IScheduler {
 				}
 			}
 		}
-		
+
 		DailyCalendar dailyCal = null;
 		if(StringHelper.isNotEmpty(workTime)) {
 			String[] workTimeArray = workTime.split("-");
 			if(workTimeArray.length == 2) {
-				dailyCal = new DailyCalendar(weekdayCal == null ? holidayCal : weekdayCal, 
+				dailyCal = new DailyCalendar(weekdayCal == null ? holidayCal : weekdayCal,
 						workTimeArray[0], workTimeArray[1]);
 			}
 		}

@@ -1,5 +1,6 @@
 package org.snaker.engine.entity.po;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -21,6 +22,8 @@ public class CcOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId
+    private Long id;
     /**
      * 流程实例ID
      */

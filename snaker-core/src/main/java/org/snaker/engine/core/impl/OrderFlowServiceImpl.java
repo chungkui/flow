@@ -50,7 +50,7 @@ public class OrderFlowServiceImpl implements OrderFlowService {
     CcOrderService ccOrderService;
     @Autowired
     HistOrderService histOrderService;
-    @Autowired
+    @Autowired(required = false)
     private Completion completion;
     @Autowired
     private TaskService taskService;
