@@ -48,6 +48,7 @@ public class TaskParser extends AbstractNodeParser {
 		task.setReminderRepeat(element.getAttribute(ATTR_REMINDERREPEAT));
 		task.setPerformType(element.getAttribute(ATTR_PERFORMTYPE));
 		task.setTaskType(element.getAttribute(ATTR_TASKTYPE));
+		//todo 任务处理人处理器改成注入的方式；
 		task.setAssignmentHandler(element.getAttribute(ATTR_ASSIGNEE_HANDLER));
         NodeList fieldList = element.getElementsByTagName(ATTR_FIELD);
         List<FieldModel> fields = new ArrayList<FieldModel>();
