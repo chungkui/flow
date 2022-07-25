@@ -121,4 +121,6 @@ public interface ProcessFlowService {
 	 * @param id
 	 */
 	void cascadeRemove(String id);
+
+    Integer getMaxVersion(String displayName);
 }

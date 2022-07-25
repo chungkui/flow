@@ -14,6 +14,7 @@
  */
 package org.snaker.engine.core.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.snaker.engine.core.OrderFlowService;
@@ -280,6 +281,17 @@ public class ProcessFlowServiceImpl implements ProcessFlowService,
 		processService.removeById(id);
 		clear(entity);
 	}
+
+	@Override
+	public Integer getMaxVersion(String displayName) {
+		Process process = processService.getOne(
+				new LambdaQueryWrapper<Process>().eq(Process::getDisplayName,displayName).orderByDesc(Process::getVersion).last("limit 1"));
+		if (process == null) {
+			return null;
+		}
+		return process.getVersion();
+	}
+
 	/**
 	 * 缓存实体
 	 * @param entity 流程定义对象

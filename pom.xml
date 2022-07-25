@@ -8,6 +8,7 @@
         <module>snaker-quartz</module>
         <module>snaker-spring-boot-starter</module>
         <module>snaker-mybatis-plus</module>
+        <module>snaker-api</module>
     </modules>
     <parent>
         <groupId>org.sonatype.oss</groupId>
