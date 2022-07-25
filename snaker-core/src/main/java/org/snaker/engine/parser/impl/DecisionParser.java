@@ -14,9 +14,11 @@
  */
 package org.snaker.engine.parser.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.snaker.engine.model.DecisionModel;
 import org.snaker.engine.model.NodeModel;
 import org.snaker.engine.parser.AbstractNodeParser;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Element;
 
 /**
@@ -24,6 +26,7 @@ import org.w3c.dom.Element;
  * @author yuqs
  * @since 1.0
  */
+@Component
 public class DecisionParser extends AbstractNodeParser {
 	/**
 	 * 产生DecisionModel模型对象
@@ -39,5 +42,10 @@ public class DecisionParser extends AbstractNodeParser {
 		DecisionModel decision = (DecisionModel)node;
 		decision.setExpr(element.getAttribute(ATTR_EXPR));
 		decision.setHandleClass(element.getAttribute(ATTR_HANDLECLASS));
+	}
+
+	@Override
+	public boolean nameEq(String name) {
+		return StringUtils.equals(name,"decision");
 	}
 }

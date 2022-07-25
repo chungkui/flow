@@ -1,9 +1,14 @@
 package org.snaker.engine.entity.po;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.sql.Blob;
+
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.BlobTypeHandler;
@@ -27,7 +32,8 @@ public class Process implements Serializable {
     /**
      * 主键ID
      */
-      private String id;
+    @TableId
+    private String id;
 
     /**
      * 流程名称

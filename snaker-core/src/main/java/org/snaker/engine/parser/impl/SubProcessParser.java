@@ -14,12 +14,14 @@
  */
 package org.snaker.engine.parser.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.snaker.engine.helper.ConfigHelper;
 import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.NodeModel;
 import org.snaker.engine.model.SubProcessModel;
 import org.snaker.engine.parser.AbstractNodeParser;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Element;
 
 /**
@@ -27,6 +29,7 @@ import org.w3c.dom.Element;
  * @author yuqs
  * @since 1.0
  */
+@Component
 public class SubProcessParser extends AbstractNodeParser {
 	/**
 	 * 产生SubProcessModel模型对象
@@ -34,7 +37,7 @@ public class SubProcessParser extends AbstractNodeParser {
 	protected NodeModel newModel() {
 		return new SubProcessModel();
 	}
-	
+
 	/**
 	 * 解析decisition节点的特有属性expr
 	 */
@@ -53,5 +56,11 @@ public class SubProcessParser extends AbstractNodeParser {
 		} else {
 			model.setForm(ConfigHelper.getProperty("subprocessurl"));
 		}
+	}
+
+	@Override
+	public boolean nameEq(String name) {
+		return StringUtils.equals(name,"subprocess");
+
 	}
 }

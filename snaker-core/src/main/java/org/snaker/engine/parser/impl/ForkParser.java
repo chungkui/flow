@@ -14,20 +14,28 @@
  */
 package org.snaker.engine.parser.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.snaker.engine.model.ForkModel;
 import org.snaker.engine.model.NodeModel;
 import org.snaker.engine.parser.AbstractNodeParser;
+import org.springframework.stereotype.Component;
 
 /**
  * 分支节点解析类
  * @author yuqs
  * @since 1.0
  */
+@Component
 public class ForkParser extends AbstractNodeParser {
 	/**
 	 * 产生ForkModel模型对象
 	 */
 	protected NodeModel newModel() {
 		return new ForkModel();
+	}
+
+	@Override
+	public boolean nameEq(String name) {
+		return StringUtils.equals(name,"fork");
 	}
 }

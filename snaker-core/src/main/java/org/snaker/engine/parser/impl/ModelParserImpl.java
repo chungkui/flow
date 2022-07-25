@@ -14,6 +14,7 @@
  */
 package org.snaker.engine.parser.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.snaker.engine.SnakerException;
 import org.snaker.engine.helper.XmlHelper;
 import org.snaker.engine.model.NodeModel;
@@ -21,6 +22,7 @@ import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.model.TransitionModel;
 import org.snaker.engine.parser.ModelParser;
 import org.snaker.engine.parser.NodeParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,6 +33,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 流程定义xml文件的模型解析器
@@ -38,8 +41,11 @@ import java.io.IOException;
  * @since 1.0
  */
 @Component
+@Slf4j
 public class ModelParserImpl implements ModelParser {
-	NodeParser nodeParser = null;
+	@Autowired
+	List<NodeParser> nodeParsers;
+
 	/**
 	 * 解析流程定义文件，并将解析后的对象放入模型容器中
 	 * @param bytes
@@ -100,10 +106,16 @@ public class ModelParserImpl implements ModelParser {
 		String nodeName = node.getNodeName();
 		Element element = (Element)node;
 		try {
-			nodeParser.parse(element);
-			return nodeParser.getModel();
+			for (NodeParser nodeParser:nodeParsers){
+				if(nodeParser.nameEq(nodeName)){
+					nodeParser.parse(element);
+					return nodeParser.getModel();
+				}
+			}
 		} catch (RuntimeException e) {
+			log.error("parse error",e);
 			throw new SnakerException(e);
 		}
+		return null;
 	}
 }

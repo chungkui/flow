@@ -27,7 +27,7 @@ public interface FlowDesignerApi {
      * 部署或者更新流程定义 xml格式
      */
     @RequestMapping(value = "/deploy", method = RequestMethod.POST)
-    Response deploy(@RequestBody DeployRequest deployRequest);
+    Response deploy( DeployRequest deployRequest);
 
     /**
      * 删除流程定义

@@ -22,57 +22,59 @@ import org.w3c.dom.Element;
  * @author yuqs
  * @since 1.0
  */
-public interface NodeParser {
+ public interface NodeParser {
 	/**
 	 * 变迁节点名称
 	 */
-	public static final String NODE_TRANSITION = "transition";
-	
+	  String NODE_TRANSITION = "transition";
+
 	/**
 	 * 节点属性名称
 	 */
-	public static final String ATTR_NAME = "name";
-	public static final String ATTR_DISPLAYNAME = "displayName";
-	public static final String ATTR_INSTANCEURL = "instanceUrl";
-	public static final String ATTR_INSTANCENOCLASS = "instanceNoClass";
-	public static final String ATTR_EXPR = "expr";
-	public static final String ATTR_HANDLECLASS = "handleClass";
-	public static final String ATTR_FORM = "form";
-    public static final String ATTR_FIELD = "field";
-    public static final String ATTR_VALUE = "value";
-    public static final String ATTR_ATTR = "attr";
-    public static final String ATTR_TYPE= "type";
-	public static final String ATTR_ASSIGNEE = "assignee";
-	public static final String ATTR_ASSIGNEE_HANDLER = "assignmentHandler";
-	public static final String ATTR_PERFORMTYPE = "performType";
-	public static final String ATTR_TASKTYPE = "taskType";
-	public static final String ATTR_TO = "to";
-	public static final String ATTR_PROCESSNAME = "processName";
-	public static final String ATTR_VERSION = "version";
-	public static final String ATTR_EXPIRETIME = "expireTime";
-	public static final String ATTR_AUTOEXECUTE = "autoExecute";
-	public static final String ATTR_CALLBACK = "callback";
-	public static final String ATTR_REMINDERTIME = "reminderTime";
-	public static final String ATTR_REMINDERREPEAT = "reminderRepeat";
-    public static final String ATTR_CLAZZ = "clazz";
-    public static final String ATTR_METHODNAME = "methodName";
-    public static final String ATTR_ARGS = "args";
-    public static final String ATTR_VAR = "var";
-    public static final String ATTR_LAYOUT = "layout";
-    public static final String ATTR_G = "g";
-    public static final String ATTR_OFFSET = "offset";
-    public static final String ATTR_PREINTERCEPTORS = "preInterceptors";
-    public static final String ATTR_POSTINTERCEPTORS = "postInterceptors";
-	
+	  String ATTR_NAME = "name";
+	  String ATTR_DISPLAYNAME = "displayName";
+	  String ATTR_INSTANCEURL = "instanceUrl";
+	  String ATTR_INSTANCENOCLASS = "instanceNoClass";
+	  String ATTR_EXPR = "expr";
+	  String ATTR_HANDLECLASS = "handleClass";
+	  String ATTR_FORM = "form";
+      String ATTR_FIELD = "field";
+      String ATTR_VALUE = "value";
+      String ATTR_ATTR = "attr";
+      String ATTR_TYPE= "type";
+	  String ATTR_ASSIGNEE = "assignee";
+	  String ATTR_ASSIGNEE_HANDLER = "assignmentHandler";
+	  String ATTR_PERFORMTYPE = "performType";
+	  String ATTR_TASKTYPE = "taskType";
+	  String ATTR_TO = "to";
+	  String ATTR_PROCESSNAME = "processName";
+	  String ATTR_VERSION = "version";
+	  String ATTR_EXPIRETIME = "expireTime";
+	  String ATTR_AUTOEXECUTE = "autoExecute";
+	  String ATTR_CALLBACK = "callback";
+	  String ATTR_REMINDERTIME = "reminderTime";
+	  String ATTR_REMINDERREPEAT = "reminderRepeat";
+      String ATTR_CLAZZ = "clazz";
+      String ATTR_METHODNAME = "methodName";
+      String ATTR_ARGS = "args";
+      String ATTR_VAR = "var";
+      String ATTR_LAYOUT = "layout";
+      String ATTR_G = "g";
+      String ATTR_OFFSET = "offset";
+      String ATTR_PREINTERCEPTORS = "preInterceptors";
+      String ATTR_POSTINTERCEPTORS = "postInterceptors";
+
 	/**
 	 * 节点dom元素解析方法，由实现类完成解析
 	 * @param element dom元素
 	 */
-	public void parse(Element element);
-	
+	 void parse(Element element);
+
 	/**
 	 * 解析成功后，提供返回NodeModel模型对象
 	 * @return 节点模型
 	 */
-	public NodeModel getModel();
+	 NodeModel getModel();
+
+	 boolean nameEq(String name);
 }

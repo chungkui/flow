@@ -7,9 +7,9 @@ spring:
   application:
     name: auth-server
   datasource:
-    url: jdbc:mysql://localhost:3306/bond?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/flow?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
-    password: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 #mybatis plus 设置
 mybatis-plus:

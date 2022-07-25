@@ -4,6 +4,7 @@ package org.snaker.engine.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.snaker.api.FlowDesignerApi;
 
@@ -16,6 +17,7 @@ import org.snaker.api.response.ProcessResponse;
 import org.snaker.engine.core.SnakerEngine;
 import org.snaker.engine.helper.DateHelper;
 import org.snaker.engine.helper.StreamHelper;
+import org.snaker.engine.helper.StringHelper;
 import org.snaker.engine.model.ProcessModel;
 import org.snaker.engine.parser.ModelParser;
 import org.snaker.engine.service.ProcessService;
@@ -36,6 +38,7 @@ import java.io.InputStream;
  */
 @RestController
 @RequestMapping("/process")
+@Slf4j
 public class ProcessController implements FlowDesignerApi {
     public static final Integer STATE_ACTIVE = 1;
     public static final Integer STATE_FINISH = 0;
@@ -44,6 +47,8 @@ public class ProcessController implements FlowDesignerApi {
     ProcessService processService;
     @Autowired
     private SnakerEngine engine;
+    @Autowired
+    ModelParser modelParser;
     @Override
     public Response<ResPage<ProcessResponse>> list(ProcessRequest processRequest) {
         Page<Process> resPage = new Page<>();
@@ -63,10 +68,14 @@ public class ProcessController implements FlowDesignerApi {
             input = StreamHelper.getStreamFromString(xml);
             // string 转bytes
             byte[] bytes = StreamHelper.readBytes(input);
-            ProcessModel model = ModelParser.parse(bytes);
+            ProcessModel model = modelParser.parse(bytes);
             Integer version = engine.process().getMaxVersion(model.getDisplayName());
             Process entity = new Process();
-            entity.setId(deployRequest.getId());
+            if(StringUtils.isEmpty(deployRequest.getId())){
+                entity.setId(StringHelper.getPrimaryKey());
+            }else {
+                entity.setId(deployRequest.getId());
+            }
             if (version != null && version >= 0) {
                 entity.setVersion(version + 1);
             } else {
@@ -79,6 +88,7 @@ public class ProcessController implements FlowDesignerApi {
             processService.saveOrUpdate(entity);
             return Response.success();
         } catch (Exception e) {
+            log.error("s error",e);
             return Response.failed();
         } finally {
             if (input != null) {
