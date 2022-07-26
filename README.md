@@ -20,7 +20,7 @@ Contact
 -----
 * QQ群号：293568574
 * snakerflow: <snakerflow@163.com>
-
+主办任务继续执行下面步骤。协办任务不触发流程扭转
 Wiki
 ----
 * <http://snakerflow.com/>
