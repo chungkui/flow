@@ -62,9 +62,8 @@ public class ProcessController implements FlowDesignerApi {
     public Response deploy(DeployRequest deployRequest) {
         InputStream input = null;
         try {
-            //对xml进行处理 todo xml前缀交给前台拼接
-            String xml = /*"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +*/
-                    SnakerHelper.convertXml(deployRequest.getXml());
+            //对xml进行处理
+            String xml = SnakerHelper.convertXml(deployRequest.getXml());
             input = StreamHelper.getStreamFromString(xml);
             // string 转bytes
             byte[] bytes = StreamHelper.readBytes(input);

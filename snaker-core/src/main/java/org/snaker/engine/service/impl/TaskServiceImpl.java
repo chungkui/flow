@@ -1,6 +1,9 @@
 package org.snaker.engine.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.snaker.engine.entity.po.Task;
+import org.snaker.engine.entity.po.WorkItem;
+import org.snaker.engine.entity.vo.WorkItemFilter;
 import org.snaker.engine.mapper.TaskMapper;
 import org.snaker.engine.service.TaskService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -36,8 +39,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         return this.baseMapper.listActiveTasks(id,excludedIds,activeNodes);
     }
 
-    public List<Task> listActiveTasks(String id, String[] excludedIds) {
-        return listActiveTasks(id,excludedIds,null);
+    @Override
+    public IPage<WorkItem> listWorkItems(IPage<WorkItem> iPage,WorkItemFilter filter) {
+        return this.baseMapper.listWorkItems(iPage,filter);
     }
-
 }

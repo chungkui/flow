@@ -563,6 +563,6 @@ public class TaskFlowServiceImpl implements TaskFlowService {
     }
 
     public List<Task> getActiveTasks(String id) {
-        return null;
+        return taskService.listActiveTasks(id,null,null);
     }
 }
