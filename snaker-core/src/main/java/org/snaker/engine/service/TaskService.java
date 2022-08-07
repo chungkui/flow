@@ -22,7 +22,7 @@ public interface TaskService extends IService<Task> {
     List<Task> getNextActiveTasks(String id);
     List<Task> getNextActiveTasks(String id,String name,String pid);
 
-    List<Task> listActiveTasks(String id, String[] excludedIds,String[] activeNodes);
+    List<Task> listActiveTasks(String orderId, String[] excludedIds,String[] activeNodes);
 
     IPage<WorkItem> listWorkItems(IPage<WorkItem> ipage,WorkItemFilter filter);
 

@@ -35,8 +35,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public List<Task> listActiveTasks(String id, String[] excludedIds, String[] activeNodes) {
-        return this.baseMapper.listActiveTasks(id,excludedIds,activeNodes);
+    public List<Task> listActiveTasks(String orderId, String[] excludedIds, String[] activeNodes) {
+        return this.baseMapper.listActiveTasks(orderId,excludedIds,activeNodes);
     }
 
     @Override

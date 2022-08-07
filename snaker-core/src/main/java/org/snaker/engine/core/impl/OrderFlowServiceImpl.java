@@ -262,7 +262,7 @@ public class OrderFlowServiceImpl implements OrderFlowService {
     public void cascadeRemove(String id) {
         HistOrder historyOrder = histOrderService.getById(id);
         AssertHelper.notNull(historyOrder);
-        List<Task> activeTasks =taskFlowService.getActiveTasks(id);
+        List<Task> activeTasks = taskFlowService.listActiveTasks(id);
         List<HistTask> historyTasks = histTaskService.listByOrderId(id);
         for (Task task : activeTasks) {
             taskService.removeById(task.getId());
@@ -270,7 +270,7 @@ public class OrderFlowServiceImpl implements OrderFlowService {
         for (HistTask historyTask : historyTasks) {
             histTaskService.removeById(historyTask.getId());
         }
-        List<CcOrder> ccOrders =ccOrderService.list(id);
+        List<CcOrder> ccOrders = ccOrderService.list(id);
         for (CcOrder ccOrder : ccOrders) {
             ccOrderService.removeById(ccOrder.getOrderId());
         }
@@ -282,8 +282,8 @@ public class OrderFlowServiceImpl implements OrderFlowService {
     }
 
     @Override
-    public List<Order> listActiveChildOrders(String parentId, String[] excludedIds){
-        return orderService.listActiveChildOrders(parentId,excludedIds);
+    public List<Order> listActiveChildOrders(String parentId, String[] excludedIds) {
+        return orderService.listActiveChildOrders(parentId, excludedIds);
     }
 
 }

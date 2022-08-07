@@ -25,7 +25,19 @@ public class Response<A> implements Serializable {
     public static <S, T> Response<T> success(S data, Class<T> targetClass) {
         return restResult(CglibUtil.copy(data,targetClass), successCode, null);
     }
+    public static <S, T> Response<List<T>> list(List<S> data, Class<T> targetClass) {
+        List<T> res = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(data)) {
 
+            res = CglibUtil.copyList(data,()->{
+                try {
+                    return targetClass.newInstance();
+                } catch (Exception e) {}
+                return null;
+            });
+        }
+        return restResult(res, successCode, "ok");
+    }
     public static <S, T> Response<ResPage<T>> page(IPage<S> page, Class<T> targetClass) {
         List<S> data = page.getRecords();
         List<T> res = new ArrayList<>();
