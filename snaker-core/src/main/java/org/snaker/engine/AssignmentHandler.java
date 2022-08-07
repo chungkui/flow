@@ -30,4 +30,6 @@ public interface AssignmentHandler {
 	 * @return Object 参与者对象
 	 */
 	Object assign(Execution execution);
+
+	String type();
 }

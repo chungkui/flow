@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class TaskModel extends WorkModel {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1775545243233990922L;
 	/**
@@ -99,10 +99,8 @@ public class TaskModel extends WorkModel {
 	 * 任务执行后回调类
 	 */
 	private String callback;
-	/**
-	 * 分配参与者处理类型
-	 */
-	private String assignmentHandler;
+
+
 	/**
 	 * 任务执行后回调对象
 	 */
@@ -110,7 +108,7 @@ public class TaskModel extends WorkModel {
 	/**
 	 * 分配参与者处理对象
 	 */
-	private AssignmentHandler assignmentHandlerObject;
+	private AssignmentHandler assignmentHandler;
     /**
      * 字段模型集合
      */
@@ -132,23 +130,23 @@ public class TaskModel extends WorkModel {
 			if(execution.isMerged()) runOutTransition(execution);
 		}
 	}
-	
+
 	public boolean isPerformAny() {
 		return PERFORMTYPE_ANY.equalsIgnoreCase(this.performType);
 	}
-	
+
 	public boolean isPerformAll() {
 		return PERFORMTYPE_ALL.equalsIgnoreCase(this.performType);
 	}
-	
+
 	public boolean isMajor() {
 		return TASKTYPE_MAJOR.equalsIgnoreCase(this.taskType);
 	}
-	
+
 	public String getAssignee() {
 		return assignee;
 	}
-	
+
 	public void setAssignee(String assignee) {
 		this.assignee = assignee;
 	}
@@ -201,26 +199,18 @@ public class TaskModel extends WorkModel {
 		this.autoExecute = autoExecute;
 	}
 
-	public AssignmentHandler getAssignmentHandlerObject() {
-		return assignmentHandlerObject;
+	public void setAssignmentHandler(AssignmentHandler assignmentHandler) {
+		this.assignmentHandler = assignmentHandler;
 	}
 
-	public void setAssignmentHandler(String assignmentHandlerStr) {
-		if(StringHelper.isNotEmpty(assignmentHandlerStr)) {
-			this.assignmentHandler = assignmentHandlerStr;
-			assignmentHandlerObject = (AssignmentHandler)ClassHelper.newInstance(assignmentHandlerStr);
-			AssertHelper.notNull(assignmentHandlerObject, "分配参与者处理类实例化失败");
-		}
-	}
-
-	public String getAssignmentHandler() {
+	public AssignmentHandler getAssignmentHandler() {
 		return assignmentHandler;
 	}
 
 	public String getCallback() {
 		return callback;
 	}
-	
+
 	public JobCallback getCallbackObject() {
 		return callbackObject;
 	}

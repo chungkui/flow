@@ -62,7 +62,7 @@ public class ProcessController implements FlowDesignerApi {
     public Response<ResPage<ProcessResponse>> list(ProcessRequest processRequest) {
         Page<Process> resPage = new Page<>();
         QueryWrapper<Process> queryWrapper = new QueryWrapper();
-        queryWrapper.eq(StringUtils.isNotBlank(processRequest.getDisplayName()), "displayName", processRequest.getDisplayName());
+        queryWrapper.eq(StringUtils.isNotBlank(processRequest.getDisplayName()), "display_name", processRequest.getDisplayName());
         return Response.page(processService.page(resPage, queryWrapper),
                 ProcessResponse.class);
     }

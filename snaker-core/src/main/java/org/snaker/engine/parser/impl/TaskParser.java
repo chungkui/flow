@@ -14,11 +14,15 @@
  */
 package org.snaker.engine.parser.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import org.apache.commons.lang.StringUtils;
+import org.snaker.engine.AssignmentHandler;
+import org.snaker.engine.helper.AssertHelper;
 import org.snaker.engine.model.FieldModel;
 import org.snaker.engine.model.NodeModel;
 import org.snaker.engine.model.TaskModel;
 import org.snaker.engine.parser.AbstractNodeParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -34,6 +38,8 @@ import java.util.List;
  */
 @Component
 public class TaskParser extends AbstractNodeParser {
+	@Autowired
+	List<AssignmentHandler> assignmentHandlers;
 	/**
 	 * 由于任务节点需要解析form、assignee属性，这里覆盖抽象类方法实现
 	 */
@@ -48,8 +54,7 @@ public class TaskParser extends AbstractNodeParser {
 		task.setReminderRepeat(element.getAttribute(ATTR_REMINDERREPEAT));
 		task.setPerformType(element.getAttribute(ATTR_PERFORMTYPE));
 		task.setTaskType(element.getAttribute(ATTR_TASKTYPE));
-		//todo 任务处理人处理器改成注入的方式；
-		task.setAssignmentHandler(element.getAttribute(ATTR_ASSIGNEE_HANDLER));
+		setAssignmentHandler(task,element.getAttribute(ATTR_ASSIGNEE_HANDLER));
         NodeList fieldList = element.getElementsByTagName(ATTR_FIELD);
         List<FieldModel> fields = new ArrayList<FieldModel>();
         for(int i = 0; i < fieldList.getLength(); i++) {
@@ -69,6 +74,17 @@ public class TaskParser extends AbstractNodeParser {
         task.setFields(fields);
 	}
 
+	private void setAssignmentHandler(TaskModel task,String assignmentHandler){
+		if(CollectionUtil.isNotEmpty(assignmentHandlers)&&StringUtils.isNotEmpty(assignmentHandler)){
+			assignmentHandlers.forEach(handler -> {
+				if(StringUtils.equals(handler.type(),assignmentHandler)){
+					task.setAssignmentHandler(handler);
+					return;
+				}
+			});
+			AssertHelper.notNull(task.getAssignmentHandler(), "分配参与者处理类实例化失败");
+		}
+	}
 	/**
 	 * 产生TaskModel模型对象
 	 */

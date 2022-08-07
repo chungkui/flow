@@ -476,7 +476,7 @@ public class TaskFlowServiceImpl implements TaskFlowService {
      */
     private String[] getTaskActors(TaskModel model, Execution execution) {
         Object assigneeObject = null;
-        AssignmentHandler handler = model.getAssignmentHandlerObject();
+        AssignmentHandler handler = model.getAssignmentHandler();
         if (StringHelper.isNotEmpty(model.getAssignee())) {
             assigneeObject = execution.getArgs().get(model.getAssignee());
         } else if (handler != null) {
