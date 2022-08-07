@@ -20,7 +20,9 @@ import java.util.List;
 public interface TaskMapper extends BaseMapper<Task> {
     IPage<WorkItem> listWorkItems(IPage<WorkItem> iPage,@Param(value = "filter")
             WorkItemFilter filter);
-    List<Task> listActiveTasks(String orderId, String[] excludedIds, String[] names);
+    List<Task> listActiveTasks(@Param(value = "orderId") String orderId,
+                               @Param(value = "excludedIds")String[] excludedIds,
+                               @Param(value = "names")  String[] names);
 
     IPage<WorkItem> listHistoryWorkItems(IPage<WorkItem> iPage,@Param(value = "filter")
             WorkItemFilter filter);

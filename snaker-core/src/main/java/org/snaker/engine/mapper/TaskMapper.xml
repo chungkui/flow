@@ -31,7 +31,7 @@
     <select id="listActiveTasks" resultType="org.snaker.engine.entity.po.Task">
         <include refid="selectActiveTasksPart"/>
         <where>
-            1=1 and
+            1=1
             <if test="orderId != null and orderId != ''">
                 and order_Id = #{orderId,jdbcType=VARCHAR}
             </if>

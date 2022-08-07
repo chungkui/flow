@@ -55,10 +55,15 @@ public class TaskFlowServiceImpl implements TaskFlowService {
     private TaskAccessStrategy strategy;
     @Autowired
     private TaskService taskService;
+    @Autowired(required = false)
     Completion completion;
+    @Autowired
     TaskActorService taskActorService;
+    @Autowired
     HistTaskService histTaskService;
+    @Autowired
     OrderService orderService;
+    @Autowired
     ProcessService processService;
 
     /**
@@ -334,7 +339,9 @@ public class TaskFlowServiceImpl implements TaskFlowService {
         if (actorIds == null || actorIds.length == 0) return;
         for (String actorId : actorIds) {
             //修复当actorId为null的bug
-            if (StringHelper.isEmpty(actorId)) continue;
+            if (StringHelper.isEmpty(actorId)){
+                continue;
+            }
             TaskActor taskActor = new TaskActor();
             taskActor.setTaskId(taskId);
             taskActor.setActorId(actorId);

@@ -107,8 +107,10 @@ public class Task implements Serializable {
     public boolean isMajor() {
         return this.taskType == TaskModel.TaskType.Major.ordinal();
     }
-    // todo
+
+    @TableField(exist = false)
     private String[] actorIds;
+    @TableField(exist = false)
     private TaskModel model;
 
     /**

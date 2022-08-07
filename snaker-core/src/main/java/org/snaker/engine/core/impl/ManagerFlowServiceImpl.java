@@ -20,6 +20,7 @@ import org.snaker.engine.entity.po.Surrogate;
 import org.snaker.engine.helper.AssertHelper;
 import org.snaker.engine.helper.DateHelper;
 import org.snaker.engine.service.SurrogateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +33,7 @@ import java.util.List;
  */
 @Service
 public class ManagerFlowServiceImpl implements ManagerFlowService {
+    @Autowired
     SurrogateService surrogateService;
 
     public void saveOrUpdate(Surrogate surrogate) {

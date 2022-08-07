@@ -103,7 +103,7 @@ public class HistTask implements Serializable {
      * 附属变量json存储
      */
     private String variable;
-
+    @TableField(exist = false)
     private String[] actorIds;
     public Task undoTask() {
         Task task = new Task();
