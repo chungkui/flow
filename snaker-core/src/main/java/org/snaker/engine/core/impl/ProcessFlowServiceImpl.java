@@ -273,7 +273,7 @@ public class ProcessFlowServiceImpl implements ProcessFlowService,
 	 */
 	public void cascadeRemove(String id) {
 		Process entity = processService.getById(id);
-		List<HistOrder> historyOrders = histOrderService.listByProcessId(id);;
+		List<HistOrder> historyOrders = histOrderService.listByProcessId(id);
 		for(HistOrder historyOrder : historyOrders) {
 			//对流程实例的相关对象进行删除
 			orderFlowService.cascadeRemove(historyOrder.getId());
