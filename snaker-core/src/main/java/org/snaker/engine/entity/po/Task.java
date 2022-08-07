@@ -116,9 +116,11 @@ public class Task implements Serializable {
     /**
      * 期望的完成时间date类型
      */
+    @TableField(exist = false)
     private Date expireDate;
     /**
      * 提醒时间date类型
      */
+    @TableField(exist = false)
     private Date remindDate;
 }
