@@ -40,14 +40,7 @@ public class ProcessResponse implements Serializable {
      * 流程是否可用
      */
     @ApiModelProperty(notes = "流程是否可用")
-    private Boolean state;
-
-    /**
-     * 流程模型定义
-     */
-    @ApiModelProperty(notes = "流程模型定义xml")
-    private Blob content;
-
+    private Integer state;
     /**
      * 版本
      */
@@ -107,20 +100,12 @@ public class ProcessResponse implements Serializable {
         this.instanceUrl = instanceUrl;
     }
 
-    public Boolean getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(Boolean state) {
+    public void setState(Integer state) {
         this.state = state;
-    }
-
-    public Blob getContent() {
-        return content;
-    }
-
-    public void setContent(Blob content) {
-        this.content = content;
     }
 
     public Integer getVersion() {

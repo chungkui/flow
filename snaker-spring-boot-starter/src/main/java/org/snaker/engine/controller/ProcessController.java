@@ -78,22 +78,25 @@ public class ProcessController implements FlowDesignerApi {
             byte[] bytes = StreamHelper.readBytes(input);
             ProcessModel model = modelParser.parse(bytes);
             Integer version = engine.process().getMaxVersion(model.getDisplayName());
-            Process entity = new Process();
+            Process process = new Process();
             if(StringUtils.isEmpty(deployRequest.getId())){
-                entity.setId(StringHelper.getPrimaryKey());
+                process.setId(StringHelper.getPrimaryKey());
             }else {
-                entity.setId(deployRequest.getId());
+                process.setId(deployRequest.getId());
             }
             if (version != null && version >= 0) {
-                entity.setVersion(version + 1);
+                process.setVersion(version + 1);
             } else {
-                entity.setVersion(0);
+                process.setVersion(0);
             }
-            entity.setState(STATE_ACTIVE);
-            entity.setContent(bytes);
-            entity.setCreateTime(DateHelper.getTime());
-            entity.setCreator(deployRequest.getCreateUser());
-            processService.saveOrUpdate(entity);
+            process.setDisplayName(model.getDisplayName());
+            process.setName(model.getName());
+            process.setType("todo");
+            process.setState(STATE_ACTIVE);
+            process.setContent(bytes);
+            process.setCreateTime(DateHelper.getTime());
+            process.setCreator(deployRequest.getCreateUser());
+            processService.saveOrUpdate(process);
             return Response.success();
         } catch (Exception e) {
             log.error("s error",e);
