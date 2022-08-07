@@ -3,7 +3,6 @@ package org.snaker.api;
 import org.snaker.api.common.ResPage;
 import org.snaker.api.common.Response;
 import org.snaker.api.request.*;
-import org.snaker.api.response.ListUserHistoryTaskResponse;
 import org.snaker.api.response.WorkItemResponse;
 import org.snaker.api.response.GetTaskActorsResponse;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,7 +50,8 @@ public interface TaskApi {
     Response<String> execTask(@RequestBody ExecTaskRequest execTaskRequest);
     @PostMapping("/reject")
     Response<String> reject(@RequestBody ExecTaskRequest execTaskRequest);
-
+    @PostMapping("/undo")
+    Response<String> undo(@RequestBody ExecTaskRequest execTaskRequest);
     @PostMapping("/listUserHistoryTask")
     Response<ResPage<WorkItemResponse>> listUserHistoryTask(@RequestBody ListUserHistoryTaskRequest listUserHistoryTaskRequest);
 }

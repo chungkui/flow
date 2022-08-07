@@ -5,8 +5,10 @@ import org.snaker.api.common.ResPage;
 import org.snaker.api.common.Response;
 import org.snaker.api.request.DeployRequest;
 import org.snaker.api.request.ProcessRequest;
+import org.snaker.api.request.ShowFlowStateRequest;
 import org.snaker.api.request.StartRequest;
 import org.snaker.api.response.ProcessResponse;
+import org.snaker.api.response.ShowFlowStateResponse;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -37,4 +39,6 @@ public interface FlowDesignerApi {
 
     @RequestMapping(value = "/start", method = RequestMethod.POST)
     Response start(@RequestBody StartRequest startRequest);
+    @RequestMapping(value = "/showOrder", method = RequestMethod.POST)
+    Response<ShowFlowStateResponse> showOrder(ShowFlowStateRequest showFlowStateRequest);
 }

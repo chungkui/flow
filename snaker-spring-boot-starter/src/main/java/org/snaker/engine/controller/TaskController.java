@@ -8,7 +8,6 @@ import org.snaker.api.common.ResPage;
 import org.snaker.api.common.Response;
 import org.snaker.api.request.*;
 import org.snaker.api.response.GetTaskActorsResponse;
-import org.snaker.api.response.ListUserHistoryTaskResponse;
 import org.snaker.api.response.WorkItemResponse;
 import org.snaker.engine.core.SnakerEngine;
 import org.snaker.engine.entity.po.Task;
@@ -86,14 +85,18 @@ public class TaskController implements TaskApi {
     }
 
     @Override
+    public Response<String> undo(ExecTaskRequest execTaskRequest) {
+        engine.task().withdrawTask(execTaskRequest.getTaskId(),execTaskRequest.getUserName());
+        return Response.success();
+    }
+
+    @Override
     public Response<ResPage<WorkItemResponse>> listUserHistoryTask(ListUserHistoryTaskRequest listUserHistoryTaskRequest) {
         Page<WorkItem> page = new Page();
         page.setCurrent(listUserHistoryTaskRequest.getPage());
         page.setSize(listUserHistoryTaskRequest.getPageSize());
         WorkItemFilter workItemFilter = new WorkItemFilter();
         workItemFilter.setOperators(new String[]{listUserHistoryTaskRequest.getUserName()});
-
         return Response.page(taskService.listHistoryWorkItems(page, workItemFilter), WorkItemResponse.class);
-
     }
 }
