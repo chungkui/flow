@@ -43,4 +43,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public IPage<WorkItem> listWorkItems(IPage<WorkItem> iPage,WorkItemFilter filter) {
         return this.baseMapper.listWorkItems(iPage,filter);
     }
+
+    @Override
+    public IPage<WorkItem> listHistoryWorkItems(IPage<WorkItem> iPage, WorkItemFilter filter) {
+        return this.baseMapper.listHistoryWorkItems(iPage,filter);
+    }
 }

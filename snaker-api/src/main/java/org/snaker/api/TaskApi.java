@@ -53,5 +53,5 @@ public interface TaskApi {
     Response<String> reject(@RequestBody ExecTaskRequest execTaskRequest);
 
     @PostMapping("/listUserHistoryTask")
-    Response<ResPage<ListUserHistoryTaskResponse>> listUserHistoryTask(@RequestBody ListUserHistoryTaskRequest listUserHistoryTaskRequest);
+    Response<ResPage<WorkItemResponse>> listUserHistoryTask(@RequestBody ListUserHistoryTaskRequest listUserHistoryTaskRequest);
 }

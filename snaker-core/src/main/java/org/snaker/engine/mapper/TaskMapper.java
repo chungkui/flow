@@ -18,6 +18,10 @@ import java.util.List;
  * @since 2022-07-16
  */
 public interface TaskMapper extends BaseMapper<Task> {
-    IPage<WorkItem> listWorkItems(IPage<WorkItem> iPage,@Param(value = "filter") WorkItemFilter filter);
+    IPage<WorkItem> listWorkItems(IPage<WorkItem> iPage,@Param(value = "filter")
+            WorkItemFilter filter);
     List<Task> listActiveTasks(String orderId, String[] excludedIds, String[] names);
+
+    IPage<WorkItem> listHistoryWorkItems(IPage<WorkItem> iPage,@Param(value = "filter")
+            WorkItemFilter filter);
 }

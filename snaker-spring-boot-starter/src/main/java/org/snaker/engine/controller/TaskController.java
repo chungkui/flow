@@ -81,12 +81,19 @@ public class TaskController implements TaskApi {
     @Override
     public Response<String> reject(ExecTaskRequest execTaskRequest) {
         engine.executeAndJumpTask(execTaskRequest.getTaskId(),
-                execTaskRequest.getUserName(), null,null);
+                execTaskRequest.getUserName(), null, null);
         return Response.success();
     }
 
     @Override
-    public Response<ResPage<ListUserHistoryTaskResponse>> listUserHistoryTask(ListUserHistoryTaskRequest listUserHistoryTaskRequest) {
-        return null;
+    public Response<ResPage<WorkItemResponse>> listUserHistoryTask(ListUserHistoryTaskRequest listUserHistoryTaskRequest) {
+        Page<WorkItem> page = new Page();
+        page.setCurrent(listUserHistoryTaskRequest.getPage());
+        page.setSize(listUserHistoryTaskRequest.getPageSize());
+        WorkItemFilter workItemFilter = new WorkItemFilter();
+        workItemFilter.setOperators(new String[]{listUserHistoryTaskRequest.getUserName()});
+
+        return Response.page(taskService.listHistoryWorkItems(page, workItemFilter), WorkItemResponse.class);
+
     }
 }

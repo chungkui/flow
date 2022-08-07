@@ -152,14 +152,12 @@ public interface TaskFlowService {
 	 * @return List<Task> 创建任务集合
 	 */
 	List<Task> createNewTask(String taskId, int taskType, String... actors);
-
     /**
      * 根据任务id获取任务模型
      * @param taskId 任务id
      * @return
      */
     TaskModel getTaskModel(String taskId);
-
     List<Task> listActiveTasks(String orderId, String[] excludedIds, String[] names);
 	List<Task> listActiveTasks(String orderId);
 

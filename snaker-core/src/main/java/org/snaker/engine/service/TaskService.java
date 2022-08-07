@@ -1,6 +1,7 @@
 package org.snaker.engine.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.apache.ibatis.annotations.Param;
 import org.snaker.engine.entity.po.Task;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.snaker.engine.entity.po.WorkItem;
@@ -25,5 +26,6 @@ public interface TaskService extends IService<Task> {
     List<Task> listActiveTasks(String orderId, String[] excludedIds,String[] activeNodes);
 
     IPage<WorkItem> listWorkItems(IPage<WorkItem> ipage,WorkItemFilter filter);
-
+    IPage<WorkItem> listHistoryWorkItems(IPage<WorkItem> iPage,@Param(value = "filter")
+            WorkItemFilter filter);
 }
